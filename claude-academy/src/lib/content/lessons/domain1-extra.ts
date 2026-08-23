@@ -171,7 +171,7 @@ return orchestrator.finalize();`,
         "Add a mock approval endpoint that flips proposals to executed.",
         "Verify the agent communicates pending status honestly to users.",
       ],
-      linkedLabId: "mcp-server",
+      linkedLabId: "multi-agent-research",
     },
     examQuestionId: "q-confidence-gate-vs-threshold",
     takeaway:

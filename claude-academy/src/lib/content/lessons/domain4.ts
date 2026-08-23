@@ -86,6 +86,7 @@ export const domain4Lessons: Lesson[] = [
         "Add two examples targeting exactly those failures; add a third only if needed.",
         "Enforce a schema allowing null for optional fields; measure again.",
       ],
+      linkedLabId: "structured-api-app",
     },
     examQuestionId: "q-schema-fabrication",
     takeaway:
@@ -179,6 +180,7 @@ function validate(out, schema, rules) {
         "Freeze ten golden inputs including two adversarial ones; script the eval.",
         "Break your prompt on purpose; confirm evals catch it before you would have.",
       ],
+      linkedLabId: "structured-api-app",
     },
     examQuestionId: "q-retry-error-context",
     takeaway:

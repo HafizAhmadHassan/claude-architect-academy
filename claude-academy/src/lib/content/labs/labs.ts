@@ -1,4 +1,6 @@
 import type { Lab } from "../types";
+import { labsCoreExtra } from "./labs-core-extra";
+import { labsAdvanced } from "./labs-advanced";
 
 export const labs: Lab[] = [
   {
@@ -182,12 +184,6 @@ export function registerCrmTools(server: McpServer) {
     extensionChallenge:
       "Add a customers:// list resource, switch the transport to Streamable HTTP behind authentication, and wrap update_customer_tier so approved proposals from a mock queue actually apply. Then connect Claude Code to your server and verify the model cites empty-result semantics correctly when a search misses.",
   },
-];
-
-export const plannedLabs = [
-  { id: "structured-api-app", title: "Structured Claude API application" },
-  { id: "tool-use-app", title: "Tool-use application" },
-  { id: "multi-agent-research", title: "Multi-agent research system" },
-  { id: "claude-code-workflow-lab", title: "Claude Code development workflow" },
-  { id: "enterprise-support-agent", title: "Production enterprise support agent" },
+  ...labsCoreExtra,
+  ...labsAdvanced,
 ];

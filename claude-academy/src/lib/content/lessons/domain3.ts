@@ -85,6 +85,7 @@ export const domain3Lessons: Lesson[] = [
         "Add one nested CLAUDE.md where a subdirectory genuinely differs.",
         "Delete one line per week that earned its place least.",
       ],
+      linkedLabId: "claude-code-workflow-lab",
     },
     examQuestionId: "q-claudemd-hierarchy",
     takeaway:
@@ -172,6 +173,7 @@ export const domain3Lessons: Lesson[] = [
         "Run one small bugfix in direct mode and one multi-file refactor in plan mode; compare review experience.",
         "Attempt a denied action and confirm the block is structural, not behavioral.",
       ],
+      linkedLabId: "claude-code-workflow-lab",
     },
     examQuestionId: "q-hook-posttooluse",
     takeaway:

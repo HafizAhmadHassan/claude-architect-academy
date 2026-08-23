@@ -83,6 +83,7 @@ async function checkpoint(history: Message[]): Promise<SessionState> {
         "Measure token spend and answer accuracy before vs after on a scripted long task.",
         "Write your merge policy: which state fields always survive compaction?",
       ],
+      linkedLabId: "enterprise-support-agent",
     },
     examQuestionId: "q-session-resume-vs-fresh",
     takeaway:
@@ -171,7 +172,7 @@ trace.emit("agent.iteration", { spanId, inputHash,
         "Fabricate a labeled mini-set (20 examples) and compute precision at two confidence thresholds.",
         "Trace one final answer back to its sources; note where the chain breaks.",
       ],
-      linkedLabId: "mcp-server",
+      linkedLabId: "enterprise-support-agent",
     },
     examQuestionId: "q-error-taxonomy-routing",
     takeaway:

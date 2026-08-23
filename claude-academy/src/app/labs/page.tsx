@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui";
-import { labs, plannedLabs } from "@/lib/content/labs/labs";
+import { labs } from "@/lib/content/labs/labs";
+import { domainMap } from "@/lib/content/domains";
 
 export const metadata: Metadata = {
   title: "Hands-on labs",
@@ -17,52 +18,60 @@ export default function LabsPage() {
         title="Learn by building"
         intro={
           <>
-            Every lab ships with objective, prerequisites, architecture, steps,
-            starter code, expected output, and a validation checklist. Build
-            first, read second.
+            Six labs take you from a first MCP server to a production-grade
+            enterprise support agent. Every lab ships with objective,
+            prerequisites, architecture notes, starter code, expected output, and
+            a validation checklist. Build first, read second.
           </>
         }
       />
       <section className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-        <h2 className="text-lg font-bold">Available now</h2>
-        <ul className="mt-5 grid gap-4 md:grid-cols-2">
-          {labs.map((lab) => (
+        <ol className="grid gap-4 md:grid-cols-2">
+          {labs.map((lab, i) => (
             <li key={lab.id}>
               <Link
                 href={`/labs/${lab.id}`}
                 className="group block h-full rounded-2xl border border-accent/40 bg-panel p-6 transition-colors hover:border-accent"
               >
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="rounded bg-accent-soft px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">
-                    Live
+                    Lab {i + 1}
                   </span>
                   <span className="text-xs text-muted">
                     ~{lab.estimatedMinutes} min
                   </span>
+                  {i === labs.length - 1 && (
+                    <span className="rounded bg-blue/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue">
+                      Capstone
+                    </span>
+                  )}
                 </div>
                 <h3 className="mt-3 text-lg font-semibold group-hover:text-accent">
                   {lab.title}
                 </h3>
-                <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-muted">
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted">
                   {lab.objective}
                 </p>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  {lab.domainIds.map((d) => (
+                    <span
+                      key={d}
+                      className="rounded-full border border-line px-2.5 py-0.5 text-[11px] font-medium text-muted"
+                    >
+                      D{domainMap[d].number} · {domainMap[d].name}
+                    </span>
+                  ))}
+                </div>
               </Link>
             </li>
           ))}
-        </ul>
+        </ol>
 
-        <h2 className="mt-12 text-lg font-bold">Coming in phase 2</h2>
-        <ul className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {plannedLabs.map((lab) => (
-            <li
-              key={lab.id}
-              className="rounded-2xl border border-line bg-panel p-5 text-sm text-muted opacity-70"
-            >
-              <span aria-hidden className="mr-2">🔒</span>
-              {lab.title}
-            </li>
-          ))}
-        </ul>
+        <p className="mt-10 rounded-xl border border-line bg-panel p-5 text-sm text-muted">
+          Recommended order: MCP server → tool-use loop → structured outputs →
+          Claude Code workflow → multi-agent research → capstone. Each
+          lab&rsquo;s validation checklist tells you when it is genuinely done.
+        </p>
       </section>
     </>
   );

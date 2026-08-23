@@ -140,7 +140,7 @@ async function executeTool(name: string, input: unknown) {
       "Set maxTurns to 2 and confirm the budget error fires instead of an infinite loop.",
       "Finish the linked MCP lab to see the same loop driven through real external tools.",
     ],
-    linkedLabId: "mcp-server",
+    linkedLabId: "tool-use-app",
   },
   examQuestionId: "q-agentic-loop-stop",
   takeaway:
