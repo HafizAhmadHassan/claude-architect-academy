@@ -1,34 +1,25 @@
 import type { Metadata } from "next";
-import { ComingSoon, PageHeader } from "@/components/ui";
+import { PageHeader } from "@/components/ui";
+import { ExamEngine } from "@/components/exam-engine";
+import { practiceQuestions } from "@/lib/content/questions/practice-questions";
 
 export const metadata: Metadata = {
   title: "Mock exam",
   description:
-    "Timed exam-style practice for the Claude Certified Architect – Foundations certification. Exam-style practice — does not reproduce the official Anthropic exam.",
+    "Timed full-length CCA-F simulation with scaled scoring, domain breakdown, and targeted recommendations.",
 };
 
 export default function MockExamPage() {
   return (
     <>
       <PageHeader
-        eyebrow="Mock Exam"
-        title="Timed mock examination"
-        intro="Exam-style practice. This simulation will not reproduce the actual Anthropic exam and is not affiliated with Anthropic's testing program."
+        eyebrow="Mock exam"
+        title="Simulate test day"
+        intro="Full bank, 60-minute clock, no feedback until you submit. Scaled-score estimate against the 720 pass line."
       />
-      <ComingSoon
-        title="Planned features"
-        planned={[
-          "Countdown timer with pause-free pacing",
-          "Question navigation grid",
-          "Flag questions for review",
-          "Answer selection with change tracking",
-          "Progress indicator",
-          "Submit and score flow",
-          "Domain-weighted score breakdown",
-          "Weak-area analysis",
-          "Recommended lessons per weak domain",
-        ]}
-      />
+      <section className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
+        <ExamEngine questions={practiceQuestions} variant="mock" />
+      </section>
     </>
   );
 }

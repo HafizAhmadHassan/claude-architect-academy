@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { DomainId, PracticeQuestion } from "@/lib/content/types";
 import { domainMap, domains } from "@/lib/content/domains";
+import { updateProgress, type RunRecord } from "@/lib/progress";
 import { Badge } from "@/components/ui";
 
 type Filter = "all" | DomainId;
@@ -285,6 +286,36 @@ function Results({
       q.correctOptionIds.length === (answers[q.id]?.selected.length ?? 0) &&
       q.correctOptionIds.every((id) => answers[q.id].selected.includes(id))
   );
+
+  const recordedRef = useRef(false);
+  useEffect(() => {
+    if (recordedRef.current || answered.length === 0) return;
+    recordedRef.current = true;
+    const byDomain: RunRecord["byDomain"] = {};
+    for (const q of answered) {
+      const ok =
+        q.correctOptionIds.length === answers[q.id].selected.length &&
+        q.correctOptionIds.every((id) => answers[q.id].selected.includes(id));
+      const entry = byDomain[q.domainId] ?? { correct: 0, total: 0 };
+      byDomain[q.domainId] = {
+        correct: entry.correct + (ok ? 1 : 0),
+        total: entry.total + 1,
+      };
+    }
+    updateProgress((s) => ({
+      ...s,
+      practiceRuns: [
+        ...s.practiceRuns,
+        {
+          date: new Date().toISOString(),
+          total: answered.length,
+          correct: score.length,
+          byDomain,
+        },
+      ],
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const byDomain = domains.map((d) => {
     const qs = answered.filter((q) => q.domainId === d.id);

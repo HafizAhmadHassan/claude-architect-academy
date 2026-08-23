@@ -46,4 +46,94 @@ export const scenarios: ArchitectureScenario[] = [
     domainId: "agentic-architecture",
     tags: ["human-in-the-loop", "permissions", "tool gateway", "compliance"],
   },
+  {
+    id: "document-pipeline-validation",
+    title: "Invoice extraction pipeline with honest schemas",
+    businessRequirement:
+      "Finance receives 40,000 supplier emails per month. An automated pipeline must extract invoice fields (vendor, amounts, currency, line items, due date) into JSON for the ERP. Downstream systems reject malformed records, and finance refuses to pay from invented data.",
+    technicalConstraints: [
+      "Roughly 15% of invoices genuinely lack a due date",
+      "Amounts arrive in multiple currencies and formats (1.234,56 vs 1,234.56)",
+      "ERP accepts only validated JSON matching a strict schema; retries are cheap but silent corruption is not",
+      "Pipeline must recover automatically from transient provider outages without duplicating payments",
+    ],
+    question: "Which pipeline design best satisfies these requirements?",
+    choices: [
+      {
+        id: "a",
+        text: "Force one all-required schema and retry with higher temperature until validation passes on every email",
+      },
+      {
+        id: "b",
+        text: "Nullable fields for genuinely optional data; tool-forced structured output validated against JSON Schema; retries that feed validator errors back to the model; typed transient-vs-validation error handling with idempotency keys on side effects",
+      },
+      {
+        id: "c",
+        text: "Free-text extraction parsed downstream with regexes written per supplier format",
+      },
+      {
+        id: "d",
+        text: "A single mega-prompt that extracts, validates, and commits to the ERP in one generation with no intermediate checks",
+      },
+    ],
+    correctChoiceId: "b",
+    choiceExplanations: {
+      a: "Required-but-often-absent fields manufacture facts — exactly what finance forbids. Temperature roulette until validation passes also produces confidently wrong records that pass schema checks.",
+      b: "Correct. The schema permits truth (null for absent dates), structured outputs make format deterministic at the API level, validator-informed retries convert failures into guided repair, and category-typed errors plus idempotency keys handle outages safely.",
+      c: "Regex-per-supplier is unmaintainable at thousands of formats and fails silently on every new template; it optimizes for yesterday's mail.",
+      d: "One-shot generation without intermediate validation concentrates every failure mode into an unauditable step; when it errs, no layer can catch it before money moves.",
+    },
+    explanation:
+      "This scenario tests whether you treat the schema as an honesty contract rather than a form to satisfy. Absent data needs a representation (null), format correctness should be enforced by the API's structured-output mechanism instead of hope, retries must carry information (the validator's specific complaints), and failure classes must drive different handling: transient faults back off patiently while validation faults return for correction. Idempotency keys ensure that when retries do fire after partial failures, side effects like payment submissions cannot duplicate.",
+    architecturalPrinciple:
+      "Schemas must permit the truth, retries must carry information, and every class of failure deserves its own handler.",
+    difficulty: "advanced",
+    domainId: "prompt-engineering",
+    tags: ["structured output", "validation", "retries", "idempotency", "schemas"],
+  },
+  {
+    id: "long-session-support-degradation",
+    title: "Long-running support sessions without context collapse",
+    businessRequirement:
+      "An enterprise support agent handles multi-day ticket conversations with customers. Sessions routinely exceed 150k tokens. Customers complain the agent forgets earlier commitments, and per-ticket cost has tripled because full history ships on every call.",
+    technicalConstraints: [
+      "Earlier promises (refunds, deadlines) must remain honored and auditable weeks later",
+      "Support staff can review agent state but cannot re-enter data manually",
+      "Provider context window caps at 200k tokens; cost grows linearly with shipped history",
+      "Crash recovery must never resurrect corrupted or poisoned conversation spans",
+    ],
+    question: "Which session-management architecture fits?",
+    choices: [
+      {
+        id: "a",
+        text: "Keep appending everything to one transcript; upgrade to the largest available context window and instruct the model to prioritize important messages",
+      },
+      {
+        id: "b",
+        text: "Checkpoint-summarize resolved threads into durable structured state (with source references), resume each turn with compact state plus recent turns; sanitize history before resuming after crashes",
+      },
+      {
+        id: "c",
+        text: "Hard-reset context every morning and ask customers to restate their issue and prior agreements daily",
+      },
+      {
+        id: "d",
+        text: "Let the agent decide mid-session which past messages to delete based on self-assessed importance",
+      },
+    ],
+    correctChoiceId: "b",
+    choiceExplanations: {
+      a: "Bigger windows delay, not prevent, dilution; 'prioritize' instructions compete inside the same overloaded attention, and linear cost growth remains untouched.",
+      b: "Correct. Compaction bounds both attention dilution and shipping cost; durable structured state keeps commitments enforceable and auditable with provenance; crash sanitization prevents resurrection of corrupted spans.",
+      c: "Amnesia transfers memory work onto customers, destroying satisfaction and violating the audit requirement for earlier promises.",
+      d: "Self-pruned history is unauditable and lossy in the worst way: models discard what looks boring, which is often where obligations hide.",
+    },
+    explanation:
+      "Context management is a first-class architecture concern once sessions outlive a window. The pattern: resolve-and-compress (finished threads become compact structured facts with references), keep recency live, and treat crashes as integrity events requiring sanitization before resumption. This preserves accountability (every commitment traces to its origin) while bounding the two resources that actually break long sessions: attention quality and token economics.",
+    architecturalPrinciple:
+      "Treat context as a managed resource: compress resolved work into durable state, resume compactly, and never resume unvalidated history.",
+    difficulty: "advanced",
+    domainId: "context-reliability",
+    tags: ["context windows", "summarization", "session management", "crash recovery"],
+  },
 ];

@@ -2,17 +2,16 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AgenticLoopDiagram } from "@/components/agentic-loop-diagram";
+import { MarkCompleteButton } from "@/components/mark-complete";
 import { Badge, CodeBlock } from "@/components/ui";
-import { agenticLoopLesson } from "@/lib/content/lessons/agentic-loop";
-import type { Lesson } from "@/lib/content/types";
+import { getLesson, lessons } from "@/lib/content/lessons";
+import { domainMap } from "@/lib/content/domains";
 
 export function generateStaticParams() {
-  return [
-    {
-      domainId: agenticLoopLesson.domainId,
-      lessonId: agenticLoopLesson.id,
-    },
-  ];
+  return lessons.map((l) => ({
+    domainId: l.domainId,
+    lessonId: l.id,
+  }));
 }
 
 export async function generateMetadata({
@@ -20,11 +19,12 @@ export async function generateMetadata({
 }: {
   params: Promise<{ domainId: string; lessonId: string }>;
 }): Promise<Metadata> {
-  const { lessonId } = await params;
-  if (lessonId !== agenticLoopLesson.id) return {};
+  const { domainId, lessonId } = await params;
+  const lesson = getLesson(domainId, lessonId);
+  if (!lesson) return {};
   return {
-    title: agenticLoopLesson.title,
-    description: agenticLoopLesson.summary,
+    title: lesson.title,
+    description: lesson.summary,
   };
 }
 
@@ -34,23 +34,24 @@ export default async function LessonPage({
   params: Promise<{ domainId: string; lessonId: string }>;
 }) {
   const { domainId, lessonId } = await params;
-  if (lessonId !== agenticLoopLesson.id || domainId !== agenticLoopLesson.domainId) {
+  const lesson = getLesson(domainId, lessonId);
+  if (!lesson || !lessons.some((l) => l.id === lesson.id && l.domainId === domainId)) {
     notFound();
   }
-  const lesson = agenticLoopLesson satisfies Lesson;
+  const domain = domainMap[lesson.domainId];
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
       <nav aria-label="Breadcrumb" className="text-sm text-muted">
         <Link href="/domains" className="hover:text-foreground">Domains</Link>
         {" / "}
-        <Link href={`/domains/${lesson.domainId}`} className="hover:text-foreground">
-          Domain 1
+        <Link href={`/domains/${domain.id}`} className="hover:text-foreground">
+          Domain {domain.number}
         </Link>
       </nav>
 
       <header className="mt-6">
-        <Badge tone="accent">Domain 1 · Agentic Architecture</Badge>
+        <Badge tone="accent">Domain {domain.number} · {domain.name}</Badge>
         <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
           {lesson.title}
         </h1>
@@ -91,7 +92,18 @@ export default async function LessonPage({
       </Section>
 
       <Section title="Architecture diagram">
-        {lesson.diagram === "agentic-loop" && <AgenticLoopDiagram />}
+        {lesson.diagram === "agentic-loop" ? (
+          <AgenticLoopDiagram />
+        ) : (
+          <p className="rounded-xl border border-dashed border-line bg-panel p-5 text-sm text-muted">
+            Conceptual diagram for this lesson ships with the pattern library —
+            see the related patterns on the{" "}
+            <Link href="/patterns" className="text-accent hover:underline">
+              patterns page
+            </Link>
+            .
+          </p>
+        )}
       </Section>
 
       <Section title={`Simple example — ${lesson.simpleExample.title}`}>
@@ -169,7 +181,7 @@ export default async function LessonPage({
             href={`/labs/${lesson.handsOn.linkedLabId}`}
             className="mt-5 inline-block rounded-xl bg-accent-strong px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
           >
-            Continue to the MCP lab →
+            Continue to the linked lab →
           </Link>
         )}
       </Section>
@@ -178,7 +190,16 @@ export default async function LessonPage({
         <h2 className="text-xs font-bold uppercase tracking-widest text-accent">
           Exam-style question
         </h2>
-        <ExamQuestionPreview questionId={lesson.examQuestionId} />
+        <p className="mt-3 text-sm italic text-muted">
+          Practice question — not an official Anthropic exam question.
+        </p>
+        <p className="mt-4 rounded-lg border border-line bg-panel p-4 text-sm font-medium">
+          {lesson.examQuestionId.replace(/-/g, " ")} — find it in the{" "}
+          <Link href="/practice" className="text-accent hover:underline">
+            practice engine
+          </Link>{" "}
+          and answer before revealing.
+        </p>
       </section>
 
       <section className="mt-12 rounded-2xl border-l-4 border-blue bg-blue/10 p-6 sm:p-8">
@@ -190,10 +211,13 @@ export default async function LessonPage({
         </p>
       </section>
 
-      <footer className="mt-8 flex flex-wrap items-center gap-2 pb-8">
-        {lesson.tags.map((t) => (
-          <Badge key={t}>{t}</Badge>
-        ))}
+      <footer className="mt-8 flex flex-wrap items-center justify-between gap-4 pb-8">
+        <div className="flex flex-wrap items-center gap-2">
+          {lesson.tags.map((t) => (
+            <Badge key={t}>{t}</Badge>
+          ))}
+        </div>
+        <MarkCompleteButton storageKey={`${lesson.domainId}/${lesson.id}`} />
       </footer>
     </article>
   );
@@ -205,35 +229,5 @@ function Section({ title, children }: { title: string; children: React.ReactNode
       <h2 className="text-lg font-bold">{title}</h2>
       <div className="mt-4 space-y-4">{children}</div>
     </section>
-  );
-}
-
-function ExamQuestionPreview({ questionId }: { questionId: string }) {
-  const isAgentic = questionId === "q-agentic-loop-stop";
-  return (
-    <>
-      <p className="mt-3 text-sm italic text-muted">
-        Practice question — not an official Anthropic exam question.
-      </p>
-      <details className="group mt-4">
-        <summary className="cursor-pointer list-none rounded-lg border border-line bg-panel p-4 text-sm font-medium marker:hidden hover:border-accent/50">
-          In an agentic loop, which event most directly causes normal loop
-          termination?{" "}
-          <span className="ml-1 text-xs font-normal text-accent">
-            Reveal answer
-          </span>
-        </summary>
-        <div className="mt-3 rounded-lg border border-line bg-background p-4 text-sm leading-relaxed text-muted">
-          <strong className="text-emerald-500">
-            A — stop_reason returns end_turn because no tool_use block was
-            emitted.
-          </strong>{" "}
-          The API&apos;s structured signal ends the loop naturally; budgets are a
-          safety net on top.
-        </div>
-      </details>
-      <p className="sr-only">Linked practice question: {questionId}</p>
-      {!isAgentic && null}
-    </>
   );
 }

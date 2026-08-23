@@ -13,6 +13,7 @@ const primaryNav = [
 ];
 
 const secondaryNav = [
+  { href: "/diagnostic", label: "Diagnostic" },
   { href: "/mock-exam", label: "Mock Exam" },
   { href: "/flashcards", label: "Flashcards" },
   { href: "/patterns", label: "Architecture Patterns" },

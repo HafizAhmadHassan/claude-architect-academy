@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Badge, PageHeader } from "@/components/ui";
 import { domains } from "@/lib/content/domains";
+import { getLessonsForDomain } from "@/lib/content/lessons";
 import { DOMAIN_IDS, type DomainId } from "@/lib/content/types";
 
 export function generateStaticParams() {
@@ -31,6 +32,7 @@ export default async function DomainPage({
   const { domainId } = await params;
   if (!DOMAIN_IDS.includes(domainId as DomainId)) notFound();
   const domain = domains.find((d) => d.id === domainId)!;
+  const domainLessons = getLessonsForDomain(domain.id);
 
   return (
     <>
@@ -52,24 +54,25 @@ export default async function DomainPage({
           </ul>
 
           <h2 className="mt-12 text-lg font-bold">Lessons</h2>
-          {domain.lessons.length === 0 ? (
+          {domainLessons.length === 0 ? (
             <p className="mt-3 rounded-xl border border-line bg-panel p-5 text-sm text-muted">
               Lessons for this domain are being generated in phase 2 of the
               content pipeline.
             </p>
           ) : (
             <ul className="mt-4 space-y-3">
-              {domain.lessons.map((lessonId) => (
-                <li key={lessonId}>
+              {domainLessons.map((lesson) => (
+                <li key={lesson.id}>
                   <Link
-                    href={`/domains/${domain.id}/lessons/${lessonId}`}
+                    href={`/domains/${domain.id}/lessons/${lesson.id}`}
                     className="block rounded-xl border border-line bg-panel p-5 transition-colors hover:border-accent/50"
                   >
                     <span className="text-xs uppercase tracking-widest text-accent">
                       Lesson
                     </span>
-                    <p className="mt-1 font-semibold">
-                      {lessonTitle(lessonId)}
+                    <p className="mt-1 font-semibold">{lesson.title}</p>
+                    <p className="mt-1 line-clamp-2 text-sm text-muted">
+                      {lesson.summary}
                     </p>
                   </Link>
                 </li>
@@ -123,18 +126,11 @@ export default async function DomainPage({
             </div>
             <div>
               <dt className="text-xs text-muted">Live lessons</dt>
-              <dd>{domain.lessons.length}</dd>
+              <dd>{domainLessons.length}</dd>
             </div>
           </dl>
         </aside>
       </section>
     </>
   );
-}
-
-function lessonTitle(id: string) {
-  return id
-    .split("-")
-    .map((w) => w[0].toUpperCase() + w.slice(1))
-    .join(" ");
 }

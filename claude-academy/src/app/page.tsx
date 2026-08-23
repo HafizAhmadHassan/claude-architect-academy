@@ -27,7 +27,7 @@ export default function HomePage() {
               Start the Roadmap
             </Link>
             <Link
-              href="/practice"
+              href="/diagnostic"
               className="rounded-xl border border-line bg-panel px-7 py-3.5 font-semibold transition-colors hover:bg-panel-2"
             >
               Take Diagnostic Test
@@ -151,7 +151,17 @@ export default function HomePage() {
             {
               href: "/practice",
               title: "Practice with explanations",
-              body: "Original questions across all five domains — every answer fully explained.",
+              body: "30+ original questions across all five domains — every answer fully explained.",
+            },
+            {
+              href: "/mock-exam",
+              title: "Timed mock exam",
+              body: "60-minute simulation with scaled-score estimate, domain breakdown, and retake recommendations.",
+            },
+            {
+              href: "/flashcards",
+              title: "Flashcard drills",
+              body: "Flip-rate-repeat recall training across every domain, synced to your progress dashboard.",
             },
           ].map((c) => (
             <Link
