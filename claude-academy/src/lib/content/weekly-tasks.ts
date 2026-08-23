@@ -41,11 +41,13 @@ export const weeklyTasks: WeeklyTask[] = [
   t(4, 2, "Rewrite three tool descriptions", "Apply the contract checklist: scope, formats, edge cases, do-not-use.", 30),
   t(4, 3, "Practice: tool design set", "Domain 2 questions until scoring above 80%.", 25, "/practice"),
   t(4, 4, "Flashcards: MCP concepts", "Client vs server roles, transports, resources.", 15, "/flashcards"),
+  t(4, 5, "Lesson: Structured errors & empty results", "Error taxonomy: transient vs validation vs permission; empty-as-data.", 35, "/domains/tool-design-mcp/lessons/structured-errors-empty-results"),
 
   t(5, 1, "Lab: Build your first MCP server", "Complete every step through the inspector smoke test.", 60, "/labs/mcp-server"),
   t(5, 2, "Lab extension challenge", "Add a resource, switch transport, wire approvals.", 45, "/labs/mcp-server"),
   t(5, 3, "Lesson: MCP integration architecture", "Clients, servers, resources, auth, permission scoping.", 35, "/domains/tool-design-mcp/lessons/mcp-integration-architecture"),
   t(5, 4, "Connect Claude Code to your server", "Register the server and verify Claude cites empty-result semantics correctly.", 30),
+  t(5, 5, "Lesson: MCP auth & permission scoping", "Per-user OAuth, least privilege at the boundary, approval gates.", 35, "/domains/tool-design-mcp/lessons/mcp-auth-permissions"),
 
   t(6, 1, "Lesson: CLAUDE.md & project memory", "Curate commands, conventions, and caveats per repository.", 35, "/domains/claude-code-workflows/lessons/claudemd-project-memory"),
   t(6, 2, "Author CLAUDE.md for a real repo", "Commands that work, conventions that matter, gotchas that bite.", 30),

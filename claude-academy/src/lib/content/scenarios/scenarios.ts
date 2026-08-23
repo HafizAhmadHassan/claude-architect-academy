@@ -136,4 +136,49 @@ export const scenarios: ArchitectureScenario[] = [
     domainId: "context-reliability",
     tags: ["context windows", "summarization", "session management", "crash recovery"],
   },
+  {
+    id: "mcp-gateway-consolidation",
+    title: "Exposing internal systems through MCP without a god-token",
+    businessRequirement:
+      "A 400-person company wants Claude-based assistants to reach four internal systems: the ticket tracker, the data warehouse, the wiki, and the deploy pipeline. Security requires per-user attribution on every action and zero standing admin credentials.",
+    technicalConstraints: [
+      "Data warehouse enforces row-level security keyed to end-user identity",
+      "Deploy pipeline can take down production; every deployment needs a named approver",
+      "Wiki is read-mostly with anonymous access allowed internally",
+      "Assistants run inside Claude Code and an internal chat app — two different hosts",
+    ],
+    question: "Which integration architecture satisfies security and both hosts?",
+    choices: [
+      {
+        id: "a",
+        text: "One MCP server holding a single admin credential for all four systems, registered in both hosts for simplicity",
+      },
+      {
+        id: "b",
+        text: "Four scoped MCP servers (one per system), each enforcing capability scopes against the caller's short-lived JWT, with the deploy server additionally requiring an approval gate that records the approving user",
+      },
+      {
+        id: "c",
+        text: "No MCP servers: give each assistant direct database credentials via environment variables",
+      },
+      {
+        id: "d",
+        text: "One server per host, each with its own god-credential, so hosts stay isolated from each other",
+      },
+    ],
+    correctChoiceId: "b",
+    choiceExplanations: {
+      a: "One shared admin token erases attribution (audit failure) and turns any prompt injection into org-wide compromise — the exact scenario security forbids.",
+      b: "Correct. Per-system servers keep blast radius small; JWT-scoped authorization preserves warehouse RLS and attribution; the approval gate names a human for every production deploy; both hosts simply register all four servers.",
+      c: "Direct DB credentials bypass row-level security, leak through model context, and cannot distinguish which human initiated a query.",
+      d: "Host-isolated god-tokens still fail attribution and maximize blast radius per host; isolation between hosts was never the requirement — containment of authority was.",
+    },
+    explanation:
+      "This scenario tests whether you treat MCP servers as trust boundaries rather than convenience wrappers. The correct shape maps one server per system with credentials scoped exactly to its capabilities, carries the end user's identity end-to-end so downstream systems enforce their own controls, and adds a second human gate only where actions are irreversible. Hosts are consumers, not owners of authority: any compliant host can attach to the same servers and inherit identical guarantees.",
+    architecturalPrinciple:
+      "Map servers to systems, scope credentials to capabilities, carry user identity end-to-end, and reserve standing power for no one.",
+    difficulty: "advanced",
+    domainId: "tool-design-mcp",
+    tags: ["mcp", "authentication", "permissions", "least privilege"],
+  },
 ];

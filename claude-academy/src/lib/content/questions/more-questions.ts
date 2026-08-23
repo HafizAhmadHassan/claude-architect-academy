@@ -881,4 +881,178 @@ export const moreQuestions: PracticeQuestion[] = [
     ],
     isOfficial: false,
   },
+  {
+    id: "q-pagination-semantics",
+    domainId: "tool-design-mcp",
+    difficulty: "intermediate",
+    type: "debugging",
+    scenario:
+      "A search_emails tool silently returns only the first 25 matches. Users complain the agent 'misses' emails that exist; the model frequently asserts an email is not present.",
+    question: "What is the root cause and fix?",
+    options: [
+      {
+        id: "a",
+        text: "The description never documents truncation; document pagination explicitly (has_more, cursor param) or return a truncated flag so absence claims stay honest",
+      },
+      {
+        id: "b",
+        text: "Return all matching emails always, regardless of size",
+      },
+      { id: "c", text: "Tell Claude in the system prompt that results may be partial" },
+      {
+        id: "d",
+        text: "Raise an error when more than 25 results exist so the model knows",
+      },
+    ],
+    correctOptionIds: ["a"],
+    explanation:
+      "Undocumented truncation turns a correct-sounding 'no such email' into a false claim. The contract must expose pagination (cursor + has_more) or at minimum a truncated marker, letting the agent fetch more pages or hedge its answer truthfully.",
+    optionExplanations: {
+      a: "Correct. Truncation is part of the output contract; models can only be honest about what the contract discloses.",
+      b: "Unbounded returns explode token costs and context windows on large mailboxes.",
+      c: "A global hint cannot tell the model which specific calls were cut short.",
+      d: "Errors imply malfunction; 'many matches' is success requiring continuation, not failure.",
+    },
+    principle:
+      "Partial data without disclosure manufactures confident falsehoods; contracts must surface truncation.",
+    tags: ["tool design", "pagination"],
+    references: [
+      {
+        label: "Anthropic Docs – Tool use best practices",
+        url: "https://docs.anthropic.com/en/docs/build-with-claude/tool-use/best-practices-and-troubleshooting",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-idempotency-keys",
+    domainId: "tool-design-mcp",
+    difficulty: "advanced",
+    type: "single-choice",
+    scenario:
+      "Your agent retries create_payment after a timeout. The first attempt actually succeeded, so the customer is charged twice.",
+    question: "Which tool-design mechanism prevents this?",
+    options: [
+      {
+        id: "a",
+        text: "Require an idempotency key parameter on mutating tools so repeated calls with the same key collapse into one effect",
+      },
+      {
+        id: "b",
+        text: "Set temperature to 0 so the agent does not retry randomly",
+      },
+      {
+        id: "c",
+        text: "Disable automatic retries entirely for write tools",
+      },
+      {
+        id: "d",
+        text: "Add a confirmation prompt asking the user before every retry",
+      },
+    ],
+    correctOptionIds: ["a"],
+    explanation:
+      "Timeouts make outcome ambiguity unavoidable — you cannot know if the server applied the write. Idempotency keys let clients retry safely because the upstream deduplicates by key, which is exactly how payment APIs solve it.",
+    optionExplanations: {
+      a: "Correct. Deduplication by key converts ambiguous timeouts into safe retries.",
+      b: "Sampling settings do not govern transport-level retry logic.",
+      c: "Removing retries trades double-charge risk for guaranteed failures during transient faults.",
+      d: "Humans cannot distinguish 'failed' from 'succeeded but response lost' any better than code can — and now they are a latency bottleneck too.",
+    },
+    principle:
+      "Any tool whose retries could duplicate side effects needs idempotency keys designed in from day one.",
+    tags: ["retries", "idempotency", "tool design"],
+    references: [
+      {
+        label: "Anthropic Docs – Handling tool use errors",
+        url: "https://docs.anthropic.com/en/docs/build-with-claude/tool-use/handling-tool-use-errors",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-tool-list-token-cost",
+    domainId: "tool-design-mcp",
+    difficulty: "intermediate",
+    type: "trade-off-analysis",
+    scenario:
+      "An assistant exposes 80 MCP tools year-round. Selection errors rise, and every request pays the token cost of 80 schemas even though most tasks need three tools.",
+    question: "Which analysis is strongest?",
+    options: [
+      {
+        id: "a",
+        text: "Both symptoms share one cause: oversized always-on surfaces. Consolidate overlapping tools and load tool groups per task/domain (or via multiple scoped MCP servers) so each request carries only relevant capabilities",
+      },
+      {
+        id: "b",
+        text: "Keep all 80 tools but shorten descriptions to one line to save tokens",
+      },
+      { id: "c", text: "Increase max_tokens to accommodate selection mistakes" },
+      {
+        id: "d",
+        text: "Ask users to memorize tool names and request them explicitly",
+      },
+    ],
+    correctOptionIds: ["a"],
+    explanation:
+      "Tool lists consume context on every call and compete during selection. Shrinking the surface — consolidation plus per-task loading through grouped servers — fixes accuracy and cost simultaneously.",
+    optionExplanations: {
+      a: "Correct. Surface area is the root variable; reduce it structurally, not cosmetically.",
+      b: "Starved descriptions worsen mis-selection — the exact symptom being treated.",
+      c: "Bigger budgets pay for more wrong answers with no selection benefit.",
+      d: "Pushing interface memory onto users defeats the purpose of natural-language tool use.",
+    },
+    principle:
+      "Every tool on the list taxes every request twice: tokens on input, attention during selection.",
+    tags: ["tool design", "context windows", "mcp"],
+    references: [
+      {
+        label: "Anthropic Engineering – Effective context engineering",
+        url: "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-schema-enum-vs-freetext",
+    domainId: "tool-design-mcp",
+    difficulty: "beginner",
+    type: "single-choice",
+    question:
+      "A deploy tool accepts environment as a free-text string. Calls arrive with 'prod', 'production', 'Prod', and ' prd '. Which schema change is most effective?",
+    options: [
+      {
+        id: "a",
+        text: "Constrain environment to an enum of valid identifiers and document each value",
+      },
+      {
+        id: "b",
+        text: "Normalize strings downstream with fuzzy matching against known aliases",
+      },
+      { id: "c", text: "Add a description saying 'use prod, not production'" },
+      {
+        id: "d",
+        text: "Accept anything and resolve the target environment with a second LLM call",
+      },
+    ],
+    correctOptionIds: ["a"],
+    explanation:
+      "Enums turn an infinite validation problem into a closed set: invalid values fail schema validation immediately with a clear message, and the model sees the legal choices right in the schema it fills.",
+    optionExplanations: {
+      a: "Correct. Closed sets eliminate whole classes of malformed input by construction.",
+      b: "Fuzzy matching guesses — 'prd ' might map to staging someday and nobody would notice.",
+      c: "Advisory prose still permits every misspelling; validation does not.",
+      d: "An LLM resolver adds cost, latency, and its own error rate to fix a schema problem.",
+    },
+    principle:
+      "Prefer closed sets over open text wherever the domain allows; constraints validate better than advice.",
+    tags: ["json schema", "enums", "validation"],
+    references: [
+      {
+        label: "Anthropic Docs – Tool use overview",
+        url: "https://docs.anthropic.com/en/docs/build-with-claude/tool-use/overview",
+      },
+    ],
+    isOfficial: false,
+  },
 ];

@@ -66,6 +66,13 @@ export const flashcards: Flashcard[] = [
     tags: ["tool design"],
   },
   {
+    id: "fc-error-categories",
+    front: "Three canonical tool error categories?",
+    back: "Transient (backoff + retry), validation (return to model for correction), permission (stop + escalate to human). Each gets different handling.",
+    domainId: "tool-design-mcp",
+    tags: ["failure handling"],
+  },
+  {
     id: "fc-empty-vs-error",
     front: "Tool finds no rows — empty array or error?",
     back: "Empty result. Errors are for execution failures; absence is valid data. Erroring forces pointless retries and masks real faults.",
@@ -73,11 +80,18 @@ export const flashcards: Flashcard[] = [
     tags: ["structured errors"],
   },
   {
-    id: "fc-error-categories",
-    front: "Three canonical tool error categories?",
-    back: "Transient (backoff + retry), validation (return to model for correction), permission (stop + escalate to human). Each gets different handling.",
+    id: "fc-idempotency",
+    front: "Retried create_payment double-charged — missing mechanism?",
+    back: "Idempotency keys on mutating tools: upstream deduplicates by key, making ambiguous timeouts safe to retry.",
     domainId: "tool-design-mcp",
-    tags: ["failure handling"],
+    tags: ["idempotency", "retries"],
+  },
+  {
+    id: "fc-token-cost-tools",
+    front: "80 always-on tools: what two taxes do you pay?",
+    back: "Token cost of 80 schemas on every request, plus attention competition during selection. Fix: consolidate + load tool groups per task.",
+    domainId: "tool-design-mcp",
+    tags: ["context windows", "tool design"],
   },
   {
     id: "fc-mcp-triangle",
