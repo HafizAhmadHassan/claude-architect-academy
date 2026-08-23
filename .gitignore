@@ -1,0 +1,21 @@
+# Secrets — never commit
+github_access.md
+.env
+.env.*
+*.pem
+
+# Dependencies & builds
+node_modules/
+.next/
+out/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
+
+# Logs
+*.log
+npm-debug.log*
