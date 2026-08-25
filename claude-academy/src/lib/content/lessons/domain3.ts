@@ -180,4 +180,180 @@ export const domain3Lessons: Lesson[] = [
       "Boundaries belong in configuration, not conversation. Reserve prompts for judgment; give machinery the rules.",
     tags: ["permissions", "plan mode", "hooks", "claude code"],
   },
+  {
+    id: "skills-commands-automation",
+    domainId: "claude-code-workflows",
+    title: "Skills, Custom Commands & Workflow Automation",
+    summary:
+      "Reusable skill files and slash commands encode repeatable workflows so Claude Code applies your team's patterns consistently without re-explaining.",
+    objectives: [
+      "Create skill files that encapsulate multi-step workflows",
+      "Design custom slash commands with parameterized inputs",
+      "Chain skills with other tools and hooks for end-to-end automation",
+      "Version and share skills across a team via source control",
+    ],
+    explanation: {
+      heading: "Concept",
+      body: [
+        "Skills are structured instruction files that teach Claude Code a specific workflow: how to scaffold a new API route, how to run a security audit, how to prepare a release. Unlike CLAUDE.md's global rules, skills are invoked on demand via slash commands and carry their own step-by-step procedure, expected inputs, and output format.",
+        "Custom commands extend the slash-command namespace. A `/deploy-check` command might run linting, type-checking, integration tests, and a diff summary in sequence. Skills compose: one command can invoke another, and hooks can gate or augment the chain. The result is a library of battle-tested workflows that new team members can run immediately.",
+      ],
+    },
+    whyItMatters: [
+      "Skills and custom commands appear in Domain 3's task statements on workflow automation.",
+      "Reusable workflows reduce prompt engineering per task — encode once, invoke many times.",
+      "Team-shared skills are a force multiplier: senior patterns become executable without mentoring overhead.",
+    ],
+    simpleExample: {
+      title: "A new-feature skill",
+      body: "Skill file that guides Claude through adding a new API endpoint:",
+      code: {
+        label: ".claude/skills/new-api-endpoint.md",
+        language: "markdown",
+        code: `# Skill: New API Endpoint
+
+## Steps
+1. Ask for resource name and HTTP method
+2. Create route file at src/routes/<resource>/index.ts
+3. Add Zod schema co-located with route
+4. Write unit tests covering happy path + 1 error case
+5. Update OpenAPI spec if one exists
+6. Run \`pnpm test --filter <resource>\` to verify
+
+## Output
+Report: file created, tests passing, any warnings.`,
+      },
+    },
+    productionExample: {
+      title: "Onboarding automation at a startup",
+      body: "A 15-person team shipped 12 skill files covering their most common tasks: new endpoint, new migration, new React component, security audit, dependency update, and release prep. New engineers run `/skill new-endpoint` on day one and get the team's exact conventions — barrel exports, error shapes, test patterns — without reading wiki pages. After three months, 78% of routine tasks started via a skill command rather than ad-hoc prompting.",
+    },
+    antiPattern: {
+      name: "One mega-skill for everything",
+      wrong:
+        "A single 200-line skill file covering all possible workflows with branching logic.",
+      consequence:
+        "Claude gets confused by irrelevant steps, the skill breaks when any step changes, and nobody dares edit it.",
+      fix:
+        "One skill per clear intention. Keep each under 50 lines. Compose via slash-command chaining instead of conditional branching.",
+    },
+    tradeOffs: [
+      {
+        choice: "Many small focused skills",
+        gain: "Easy to maintain, test, and share; clear entry points",
+        cost: "Team must know which skill to invoke; discovery overhead",
+      },
+      {
+        choice: "Parameterized slash commands",
+        gain: "Flexible inputs; one command handles variants",
+        cost: "More complex validation; error messages must guide usage",
+      },
+      {
+        choice: "Skills in source control",
+        gain: "Version history, code review, team-wide availability",
+        cost: "Requires discipline to keep skills truthful as codebase evolves",
+      },
+    ],
+    handsOn: {
+      title: "Build a skill library",
+      steps: [
+        "Write a skill for the task you repeat most often (new component, new route, etc.).",
+        "Test it by running the skill on a fresh branch — does Claude follow every step?",
+        "Create a slash command that chains two skills together.",
+        "Add a PreToolUse hook that validates the skill's output format.",
+      ],
+      linkedLabId: "claude-code-workflow-lab",
+    },
+    examQuestionId: "q-skill-design",
+    takeaway:
+      "Skills turn tribal knowledge into executable contracts. If you explain it twice, write it as a skill.",
+    tags: ["skills", "commands", "automation", "claude code"],
+  },
+  {
+    id: "ci-cd-integration",
+    domainId: "claude-code-workflows",
+    title: "CI/CD Integration & Automated Testing",
+    summary:
+      "Run Claude Code in pipelines for automated code review, test generation, and deployment validation — with the same permission and safety model as interactive use.",
+    objectives: [
+      "Configure Claude Code for non-interactive CI environments",
+      "Use Claude for automated code review in pull request workflows",
+      "Generate and maintain test suites with CI-driven Claude invocations",
+      "Apply permission rules and hooks in pipeline contexts",
+    ],
+    explanation: {
+      heading: "Concept",
+      body: [
+        "Claude Code runs in CI the same way it runs locally: it reads CLAUDE.md, respects permission rules, and executes hooks. The difference is non-interactive mode — no human in the loop for permission prompts, so deny-by-default and pre-approved allow-lists become critical.",
+        "Common CI patterns include: automated code review on pull requests (Claude reads the diff, flags issues, posts a summary), test generation (Claude writes tests for uncovered code), and deployment validation (Claude runs a smoke-test skill and reports results). Each pattern uses the same underlying skill/hook/permission infrastructure.",
+      ],
+    },
+    whyItMatters: [
+      "CI/CD automation is explicitly named in Domain 3's task statements.",
+      "Pipeline contexts require understanding permission rules without interactive prompts.",
+      "Code review automation is a high-impact, low-risk entry point for agentic workflows.",
+    ],
+    simpleExample: {
+      title: "CI code review step",
+      body: "GitHub Actions step that runs Claude Code for PR review:",
+      code: {
+        label: ".github/workflows/review.yml",
+        language: "yaml",
+        code: `- name: Claude Code Review
+  run: |
+    claude --print --dangerously-skip-permissions \\
+      "Review the diff in this PR. Focus on:
+       1. Security issues (injection, auth bypass)
+       2. Performance regressions
+       3. Missing error handling
+       Output a structured summary with file:line references."
+  env:
+    ANTHROPIC_API_KEY: \${{ secrets.ANTHROPIC_API_KEY }}`,
+      },
+    },
+    productionExample: {
+      title: "Automated test generation pipeline",
+      body: "A team added a CI job that runs after every merge to main. Claude reads the new diff, identifies untested code paths, generates test files, and opens a follow-up PR. The job uses a custom skill that enforces the team's test conventions (Arrange-Act-Assert, no snapshot tests, coverage thresholds). Over six months, test coverage rose from 62% to 89% with zero manual test-writing effort for routine cases.",
+    },
+    antiPattern: {
+      name: "Skipping permissions in CI",
+      wrong:
+        "Using --dangerously-skip-permissions on every CI step because 'CI is trusted'.",
+      consequence:
+        "A compromised dependency or malicious PR diff triggers unrestricted file writes, secret reads, or network calls in the pipeline.",
+      fix:
+        "Use minimal allow-lists per CI job. Code review needs only Read + Bash(diff). Test generation needs Read + Write(test/**). Deny everything else.",
+    },
+    tradeOffs: [
+      {
+        choice: "Claude code review in CI",
+        gain: "Catches issues humans miss; consistent review quality",
+        cost: "API costs per PR; false positives need tuning",
+      },
+      {
+        choice: "Automated test generation",
+        gain: "Coverage rises without manual effort",
+        cost: "Generated tests need human review for correctness and intent",
+      },
+      {
+        choice: "Non-interactive permissions",
+        gain: "Pipelines run without human gates",
+        cost: "Requires precise allow-lists; over-permissive rules create security gaps",
+      },
+    ],
+    handsOn: {
+      title: "Add Claude to a CI pipeline",
+      steps: [
+        "Create a GitHub Actions workflow that runs Claude Code on a PR diff.",
+        "Write a review skill with the team's specific focus areas.",
+        "Configure permission rules for the CI job: read-only where possible.",
+        "Run the workflow on a real PR and evaluate the review output quality.",
+      ],
+      linkedLabId: "claude-code-workflow-lab",
+    },
+    examQuestionId: "q-ci-permissions",
+    takeaway:
+      "CI is just another user of Claude Code — same rules, same skills, tighter permissions. Automate the repeatable, protect the dangerous.",
+    tags: ["ci/cd", "automation", "code review", "testing", "claude code"],
+  },
 ];

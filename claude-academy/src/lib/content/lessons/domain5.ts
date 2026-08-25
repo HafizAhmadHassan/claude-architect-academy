@@ -179,4 +179,190 @@ trace.emit("agent.iteration", { spanId, inputHash,
       "Type your failures, calibrate your routing, and trace every hop — reliability is what remains when you can replay any decision.",
     tags: ["reliability", "observability", "escalation", "provenance"],
   },
+  {
+    id: "context-window-strategies",
+    domainId: "context-reliability",
+    title: "Context Window Optimization Strategies",
+    summary:
+      "Maximize signal per token: hierarchical context loading, progressive disclosure, semantic search retrieval, and dynamic context assembly.",
+    objectives: [
+      "Design hierarchical context loading: summary → detail on demand",
+      "Use retrieval-augmented generation to inject only relevant context",
+      "Apply progressive disclosure to keep early context lightweight",
+      "Balance context completeness against attention dilution",
+    ],
+    explanation: {
+      heading: "Concept",
+      body: [
+        "Context windows are expensive real estate. Every token competes for attention, so the goal is maximizing information density: put the most relevant context first, defer details to on-demand retrieval, and never include context 'just in case.'",
+        "Three strategies compound: hierarchical loading starts with a compact summary and drills into detail only when the task requires it. Retrieval-augmented generation (RAG) fetches relevant documents by semantic similarity rather than dumping the entire corpus. Progressive disclosure feeds context in stages — system prompt for identity and rules, initial context for the task, then expanding context as the model requests or the workflow requires.",
+      ],
+    },
+    whyItMatters: [
+      "Context management is Domain 5's core topic — the exam tests whether you can keep agents coherent at scale.",
+      "RAG integration patterns appear across multiple domain blueprints.",
+      "Cost optimization through context management is a real-world architectural concern.",
+    ],
+    simpleExample: {
+      title: "Hierarchical context loading",
+      body: "Load summary first, expand on demand:",
+      code: {
+        label: "context-loader.ts",
+        language: "typescript",
+        code: `interface ContextLayer {
+  summary: string;        // Always loaded (~200 tokens)
+  details: string[];      // Loaded on task match (~500 tokens each)
+  fullDoc: () => Promise<string>; // Loaded on demand
+}
+
+async function assembleContext(task: string, layers: ContextLayer[]) {
+  const context = layers.map(l => l.summary).join("\\n");
+  const relevant = layers.filter(l =>
+    l.details.some(d => task.includes(keyword(d)))
+  );
+  return context + "\\n" + relevant.map(r => r.details.join("\\n")).join("\\n");
+}`,
+      },
+    },
+    productionExample: {
+      title: "Customer support agent with RAG",
+      body: "A support agent loads three context layers: (1) a 200-token company policy summary always present, (2) product-specific FAQs matched by ticket topic via embedding search, and (3) the customer's recent interaction history (last 5 messages). Full policy documents are available via a 'read more' tool the model can invoke when FAQ entries are insufficient. Token usage dropped 62% compared to loading all policies upfront, while first-contact resolution rate improved because the model focused on relevant context instead of drowning in noise.",
+    },
+    antiPattern: {
+      name: "Load everything, hope attention handles it",
+      wrong:
+        "Dumping the entire knowledge base into context because 'the model can handle 200k tokens'.",
+      consequence:
+        "Key instructions diluted across thousands of tokens; model cites irrelevant documents; cost balloons with no quality improvement.",
+      fix:
+        "Implement retrieval. Start with keyword matching, graduate to semantic search. Always have a summary layer that fits in the system prompt.",
+    },
+    tradeOffs: [
+      {
+        choice: "RAG-based retrieval",
+        gain: "Relevant context only; scalable to large corpora",
+        cost: "Retrieval quality determines everything; embedding infrastructure needed",
+      },
+      {
+        choice: "Hierarchical loading",
+        gain: "Progressive detail; predictable token budget",
+        cost: "Summary quality is critical; poor summaries cause missed context",
+      },
+      {
+        choice: "Full context upfront",
+        gain: "Zero retrieval latency; simple architecture",
+        cost: "Attention dilution; cost scales linearly with corpus size",
+      },
+    ],
+    handsOn: {
+      title: "Optimize a context budget",
+      steps: [
+        "Audit a production prompt: how many tokens are loaded? How many are used?",
+        "Implement a two-layer system: summary always + detail on match.",
+        "Measure token usage and task quality before vs after.",
+        "Add a tool that lets the model request specific documents on demand.",
+      ],
+    },
+    examQuestionId: "q-context-optimization",
+    takeaway:
+      "Context is a cache you actively manage. Load the minimum, retrieve the relevant, and summarize the rest.",
+    tags: ["context windows", "RAG", "optimization", "retrieval"],
+  },
+  {
+    id: "monitoring-alerting",
+    domainId: "context-reliability",
+    title: "Production Monitoring & Alerting for Agents",
+    summary:
+      "Instrument agentic systems with metrics, traces, and alerts that catch degradation before users do — and make every failure root-causeable.",
+    objectives: [
+      "Define key metrics: latency, token cost, success rate, escalation rate per domain",
+      "Implement structured tracing that links user request → agent iterations → tool calls → final output",
+      "Design alerting rules based on metric thresholds and anomaly detection",
+      "Build dashboards that surface agent health at a glance",
+    ],
+    explanation: {
+      heading: "Concept",
+      body: [
+        "Production agents need observability across four pillars: metrics (aggregate health signals), traces (individual request journeys), logs (debugging detail), and alerts (automated threshold violations). Without these, teams discover problems from user complaints rather than dashboards.",
+        "The most critical metrics for agentic systems are: p95 latency (how long users wait), token cost per request (budget compliance), success rate (task completion without escalation), and escalation rate (human intervention frequency). Each metric needs domain-level breakdowns so you can spot which domain is degrading.",
+      ],
+    },
+    whyItMatters: [
+      "Observability is explicitly named in Domain 5's exam topics.",
+      "Production monitoring separates toy demos from deployable systems.",
+      "Alert design requires understanding both the metrics and the agent architecture to set meaningful thresholds.",
+    ],
+    simpleExample: {
+      title: "Agent trace structure",
+      body: "Every request produces a structured trace for debugging:",
+      code: {
+        label: "tracing.ts",
+        language: "typescript",
+        code: `interface AgentTrace {
+  requestId: string;
+  userId: string;
+  domain: string;
+  startTime: number;
+  iterations: {
+    step: number;
+    toolCalls: { tool: string; latencyMs: number; ok: boolean }[];
+    tokensUsed: number;
+  }[];
+  outcome: "completed" | "escalated" | "failed";
+  totalLatencyMs: number;
+  totalTokens: number;
+}
+
+function emitTrace(trace: AgentTrace) {
+  metrics.increment("agent.request", { domain: trace.domain, outcome: trace.outcome });
+  metrics.histogram("agent.latency", trace.totalLatencyMs, { domain: trace.domain });
+  metrics.histogram("agent.tokens", trace.totalTokens, { domain: trace.domain });
+  traces.export(trace); // to OpenTelemetry, Datadog, etc.
+}`,
+      },
+    },
+    productionExample: {
+      title: "Alerting on agent degradation",
+      body: "A team monitors their support agent with three alert tiers: Info (escalation rate exceeds 15% for 10 minutes — investigate domain-specific degradation), Warning (p95 latency exceeds 30 seconds for 5 minutes — possible upstream slowdown), Critical (success rate drops below 80% for 5 minutes — page on-call). Alerts are domain-scoped so the team knows whether it's a billing-agent problem or a general infrastructure issue. During a vector database outage, the RAG retrieval alert fired first, before user complaints arrived.",
+    },
+    antiPattern: {
+      name: "Alert on everything",
+      wrong:
+        "Setting alerts on every metric at low thresholds because 'coverage is safety'.",
+      consequence:
+        "Alert fatigue; real issues buried in noise; team stops responding to pages.",
+      fix:
+        "Three tiers (info/warning/critical) with domain-scoped thresholds tuned to actual baseline metrics. Start wide, narrow after two weeks of data.",
+    },
+    tradeOffs: [
+      {
+        choice: "Per-domain metric breakdowns",
+        gain: "Precise diagnosis; domain-specific SLAs",
+        cost: "More metrics to manage; higher storage costs",
+      },
+      {
+        choice: "Structured tracing on every request",
+        gain: "Full replayability; root-cause analysis in minutes",
+        cost: "Storage volume; PII redaction required",
+      },
+      {
+        choice: "Anomaly-based alerting",
+        gain: "Catches novel failure modes without manual threshold tuning",
+        cost: "Requires baseline data; can produce false positives during traffic spikes",
+      },
+    ],
+    handsOn: {
+      title: "Instrument an agent",
+      steps: [
+        "Add structured tracing to one agent loop (request → iterations → outcome).",
+        "Define three metrics: latency, token count, success rate — with domain labels.",
+        "Set up one alert at a realistic threshold based on observed baselines.",
+        "Simulate a failure and verify the alert fires before you would have noticed manually.",
+      ],
+    },
+    examQuestionId: "q-agent-monitoring",
+    takeaway:
+      "You cannot improve what you cannot measure. Instrument first, optimize second, alert on what matters.",
+    tags: ["monitoring", "alerting", "observability", "tracing", "metrics"],
+  },
 ];

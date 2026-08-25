@@ -44,6 +44,11 @@ export default async function LessonPage({
   const domain = domainMap[lesson.domainId];
   const lessonUrl = `/domains/${domain.id}/lessons/${lesson.id}`;
 
+  const domainLessons = lessons.filter((l) => l.domainId === lesson.domainId);
+  const currentIdx = domainLessons.findIndex((l) => l.id === lesson.id);
+  const prevLesson = currentIdx > 0 ? domainLessons[currentIdx - 1] : null;
+  const nextLesson = currentIdx < domainLessons.length - 1 ? domainLessons[currentIdx + 1] : null;
+
   return (
     <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
       <nav aria-label="Breadcrumb" className="flex items-center justify-between">
@@ -63,11 +68,28 @@ export default async function LessonPage({
       </nav>
 
       <header className="mt-6">
-        <Badge tone="accent">Domain {domain.number} · {domain.name}</Badge>
+        <div className="flex items-center gap-3">
+          <Badge tone="accent">Domain {domain.number} · {domain.name}</Badge>
+          <span className="text-xs text-muted">
+            Lesson {currentIdx + 1} of {domainLessons.length}
+          </span>
+        </div>
         <h1 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
           {lesson.title}
         </h1>
         <p className="mt-4 leading-relaxed text-muted">{lesson.summary}</p>
+        <div className="mt-4 flex items-center gap-4 text-xs text-muted">
+          <span className="flex items-center gap-1">
+            <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            ~{Math.max(3, Math.ceil((lesson.explanation.body.join(" ").split(/\s+/).length + lesson.takeaway.split(/\s+/).length) / 200))} min read
+          </span>
+          <span>·</span>
+          <span>{lesson.objectives.length} objectives</span>
+          <span>·</span>
+          <span>{lesson.tradeOffs.length} trade-offs</span>
+        </div>
       </header>
 
       <section className="mt-10 rounded-2xl border border-line bg-panel p-6 sm:p-8" aria-labelledby="objectives-h">
@@ -231,6 +253,41 @@ export default async function LessonPage({
         </div>
         <MarkCompleteButton storageKey={`${lesson.domainId}/${lesson.id}`} />
       </footer>
+
+      <nav className="mt-12 flex items-center justify-between border-t border-line pt-8" aria-label="Lesson navigation">
+        {prevLesson ? (
+          <Link
+            href={`/domains/${domain.id}/lessons/${prevLesson.id}`}
+            className="group flex items-center gap-3 text-sm text-muted hover:text-foreground"
+          >
+            <svg className="h-5 w-5 shrink-0 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            </svg>
+            <div>
+              <span className="text-xs text-muted">Previous lesson</span>
+              <p className="font-medium">{prevLesson.title}</p>
+            </div>
+          </Link>
+        ) : (
+          <div />
+        )}
+        {nextLesson ? (
+          <Link
+            href={`/domains/${domain.id}/lessons/${nextLesson.id}`}
+            className="group flex items-center gap-3 text-right text-sm text-muted hover:text-foreground"
+          >
+            <div>
+              <span className="text-xs text-muted">Next lesson</span>
+              <p className="font-medium">{nextLesson.title}</p>
+            </div>
+            <svg className="h-5 w-5 shrink-0 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+        ) : (
+          <div />
+        )}
+      </nav>
 
       <div className="mt-6 space-y-6 pb-8">
         <NotesPanel lessonKey={`${lesson.domainId}/${lesson.id}`} />
