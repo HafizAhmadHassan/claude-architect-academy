@@ -4,7 +4,7 @@ import { certification, siteMetadata } from "@/lib/content/certification";
 export function SiteFooter() {
   return (
     <footer className="border-t border-line bg-panel">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-3">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-4">
         <div>
           <p className="font-semibold">{siteMetadata.name}</p>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-muted">
@@ -20,6 +20,16 @@ export function SiteFooter() {
             <li><Link className="hover:text-foreground" href="/practice">Practice questions</Link></li>
             <li><Link className="hover:text-foreground" href="/scenarios">Architecture scenarios</Link></li>
             <li><Link className="hover:text-foreground" href="/labs/mcp-server">MCP server lab</Link></li>
+          </ul>
+        </div>
+        <div>
+          <p className="text-sm font-semibold">Your Progress</p>
+          <ul className="mt-3 space-y-2 text-sm text-muted">
+            <li><Link className="hover:text-foreground" href="/progress">Dashboard</Link></li>
+            <li><Link className="hover:text-foreground" href="/bookmarks">Bookmarks</Link></li>
+            <li><Link className="hover:text-foreground" href="/notes">My Notes</Link></li>
+            <li><Link className="hover:text-foreground" href="/achievements">Achievements</Link></li>
+            <li><Link className="hover:text-foreground" href="/search">Search</Link></li>
           </ul>
         </div>
         <div>

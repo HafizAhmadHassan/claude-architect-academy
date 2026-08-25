@@ -67,15 +67,22 @@ export function FlashcardDeck({ cards }: { cards: Flashcard[] }) {
   );
 
   const activeOrder = useMemo(() => {
-    if (pool.length === 0) return [];
     if (
       order.length === pool.length &&
       order.every((id) => pool.some((c) => c.id === id))
     ) {
       return order;
     }
-    return shuffle(pool.map((c) => c.id));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // Deterministic until the mount/shuffle effect runs — keeps SSR and
+    // first client render identical (avoids hydration mismatch).
+    return pool.map((c) => c.id);
+  }, [order, pool]);
+
+  useEffect(() => {
+    // Async so the deterministic SSR/first-render order stays intact until
+    // after hydration; then each new deck gets a fresh shuffle.
+    const t = setTimeout(() => setOrder(shuffle(pool.map((c) => c.id))), 0);
+    return () => clearTimeout(t);
   }, [pool]);
 
   const cardMap = useMemo(
@@ -107,7 +114,7 @@ export function FlashcardDeck({ cards }: { cards: Flashcard[] }) {
     updateProgress((s) => {
       if (kind === "again") return s;
       const next = { ...s.flashcards };
-      next[current.id] = "known";
+      next[current.id] = kind === "known" ? "known" : "review";
       return { ...s, flashcards: next };
     });
     setFlipped(false);

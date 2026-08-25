@@ -94,7 +94,7 @@ export function ProgressDashboard() {
         />
         <StatCard
           label="Flashcards known"
-          value={`${state.flashcards.known.length} / ${flashcards.length}`}
+          value={`${Object.values(state.flashcards).filter((s) => s === "known").length} / ${flashcards.length}`}
           href="/flashcards"
         />
       </div>

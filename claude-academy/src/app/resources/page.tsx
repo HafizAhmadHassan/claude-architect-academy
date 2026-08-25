@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PageHeader } from "@/components/ui";
+import { ResourceBookmark } from "@/components/resource-bookmark";
 import { certification } from "@/lib/content/certification";
 
 export const metadata: Metadata = {
@@ -78,15 +79,18 @@ export default function ResourcesPage() {
                 href={r.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-xl border border-line bg-panel p-5 transition-colors hover:border-accent/50"
+                className="flex items-center justify-between gap-3 rounded-xl border border-line bg-panel p-5 transition-colors hover:border-accent/50"
               >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="font-medium">{r.label}</span>
-                  <span className="shrink-0 rounded bg-accent-soft px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">
-                    Official ↗
-                  </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">{r.label}</span>
+                    <span className="shrink-0 rounded bg-accent-soft px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">
+                      Official ↗
+                    </span>
+                  </div>
+                  <p className="mt-1.5 text-sm text-muted">{r.note}</p>
                 </div>
-                <p className="mt-1.5 text-sm text-muted">{r.note}</p>
+                <ResourceBookmark url={r.url} label={r.label} />
               </a>
             </li>
           ))}
@@ -102,15 +106,18 @@ export default function ResourcesPage() {
                 href={r.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-xl border border-line bg-panel p-5 transition-colors hover:border-muted"
+                className="flex items-center justify-between gap-3 rounded-xl border border-line bg-panel p-5 transition-colors hover:border-muted"
               >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="font-medium">{r.label}</span>
-                  <span className="shrink-0 rounded border border-line px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-muted">
-                    Community ↗
-                  </span>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium">{r.label}</span>
+                    <span className="shrink-0 rounded border border-line px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-muted">
+                      Community ↗
+                    </span>
+                  </div>
+                  <p className="mt-1.5 text-sm text-muted">{r.note}</p>
                 </div>
-                <p className="mt-1.5 text-sm text-muted">{r.note}</p>
+                <ResourceBookmark url={r.url} label={r.label} />
               </a>
             </li>
           ))}

@@ -3,6 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AgenticLoopDiagram } from "@/components/agentic-loop-diagram";
 import { MarkCompleteButton } from "@/components/mark-complete";
+import { BookmarkButton } from "@/components/bookmark-button";
+import { NotesPanel } from "@/components/notes-panel";
+import { CommentsSection } from "@/components/comments-section";
 import { Badge, CodeBlock } from "@/components/ui";
 import { getLesson, lessons } from "@/lib/content/lessons";
 import { domainMap } from "@/lib/content/domains";
@@ -39,15 +42,24 @@ export default async function LessonPage({
     notFound();
   }
   const domain = domainMap[lesson.domainId];
+  const lessonUrl = `/domains/${domain.id}/lessons/${lesson.id}`;
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6">
-      <nav aria-label="Breadcrumb" className="text-sm text-muted">
-        <Link href="/domains" className="hover:text-foreground">Domains</Link>
-        {" / "}
-        <Link href={`/domains/${domain.id}`} className="hover:text-foreground">
-          Domain {domain.number}
-        </Link>
+      <nav aria-label="Breadcrumb" className="flex items-center justify-between">
+        <span className="text-sm text-muted">
+          <Link href="/domains" className="hover:text-foreground">Domains</Link>
+          {" / "}
+          <Link href={`/domains/${domain.id}`} className="hover:text-foreground">
+            Domain {domain.number}
+          </Link>
+        </span>
+        <BookmarkButton
+          url={lessonUrl}
+          title={lesson.title}
+          type="lesson"
+          domain={domain.name}
+        />
       </nav>
 
       <header className="mt-6">
@@ -136,7 +148,7 @@ export default async function LessonPage({
             <dd className="mt-1 text-muted">{lesson.antiPattern.consequence}</dd>
           </div>
           <div>
-            <dt className="font-semibold uppercase tracking-wide text-[11px] text-emerald-500">Do this instead</dt>
+            <dt className="font-semibold uppercase tracking-wide text-[11px] text-muted text-emerald-500">Do this instead</dt>
             <dd className="mt-1 text-muted">{lesson.antiPattern.fix}</dd>
           </div>
         </dl>
@@ -204,14 +216,14 @@ export default async function LessonPage({
 
       <section className="mt-12 rounded-2xl border-l-4 border-blue bg-blue/10 p-6 sm:p-8">
         <h2 className="text-xs font-bold uppercase tracking-widest text-blue">
-          Architect’s takeaway
+          Architect&apos;s takeaway
         </h2>
         <p className="mt-3 text-lg font-medium leading-relaxed">
           {lesson.takeaway}
         </p>
       </section>
 
-      <footer className="mt-8 flex flex-wrap items-center justify-between gap-4 pb-8">
+      <footer className="mt-8 flex flex-wrap items-center justify-between gap-4 pb-4">
         <div className="flex flex-wrap items-center gap-2">
           {lesson.tags.map((t) => (
             <Badge key={t}>{t}</Badge>
@@ -219,6 +231,11 @@ export default async function LessonPage({
         </div>
         <MarkCompleteButton storageKey={`${lesson.domainId}/${lesson.id}`} />
       </footer>
+
+      <div className="mt-6 space-y-6 pb-8">
+        <NotesPanel lessonKey={`${lesson.domainId}/${lesson.id}`} />
+        <CommentsSection lessonKey={`${lesson.domainId}/${lesson.id}`} />
+      </div>
     </article>
   );
 }

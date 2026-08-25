@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader } from "@/components/ui";
 import { PatternDiagram } from "@/components/pattern-diagram";
+import { PatternBookmark } from "@/components/pattern-bookmark";
 import { patterns } from "@/lib/content/patterns";
 import { domainMap } from "@/lib/content/domains";
 
@@ -45,6 +46,7 @@ export default function PatternsPage() {
                 <span className="ml-auto text-xs text-muted">
                   D{p.domainIds.map((d) => domainMap[d].number).join(" · ")}
                 </span>
+                <PatternBookmark patternId={p.id} name={p.name} />
               </summary>
 
               <div className="border-t border-line p-5 sm:p-6">
