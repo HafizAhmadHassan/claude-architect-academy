@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AgenticLoopDiagram } from "@/components/agentic-loop-diagram";
+import { WorkflowPatternsExplorer } from "@/components/workflow-patterns-explorer";
+import { McpArchitectureDiagram } from "@/components/mcp-architecture-diagram";
+import { ContextWindowVisualizer } from "@/components/context-window-visualizer";
+import type { Lesson } from "@/lib/content/types";
 import { MarkCompleteButton } from "@/components/mark-complete";
 import { BookmarkButton } from "@/components/bookmark-button";
 import { NotesPanel } from "@/components/notes-panel";
@@ -126,8 +130,11 @@ export default async function LessonPage({
       </Section>
 
       <Section title="Architecture diagram">
-        {lesson.diagram === "agentic-loop" ? (
-          <AgenticLoopDiagram />
+        {lesson.diagram && lesson.diagram in DIAGRAMS ? (
+          (() => {
+            const Diagram = DIAGRAMS[lesson.diagram as NonNullable<Lesson["diagram"]>];
+            return <Diagram />;
+          })()
         ) : (
           <p className="rounded-xl border border-dashed border-line bg-panel p-5 text-sm text-muted">
             Conceptual diagram for this lesson ships with the pattern library —
@@ -305,3 +312,10 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     </section>
   );
 }
+
+const DIAGRAMS: Record<NonNullable<Lesson["diagram"]>, React.ComponentType> = {
+  "agentic-loop": AgenticLoopDiagram,
+  "workflow-patterns": WorkflowPatternsExplorer,
+  "mcp-architecture": McpArchitectureDiagram,
+  "context-window": ContextWindowVisualizer,
+};

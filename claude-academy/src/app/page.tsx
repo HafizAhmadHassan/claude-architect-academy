@@ -135,6 +135,43 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="border-b border-line bg-panel">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div className="max-w-2xl">
+              <Badge tone="accent">New · Visual learning</Badge>
+              <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">
+                Learn it by seeing it
+              </h2>
+              <p className="mt-3 leading-relaxed text-muted">
+                Interactive visualizations grounded in Anthropic&apos;s
+                engineering guidance and the MCP specification — animated
+                workflow patterns, a live context-window simulator, and an
+                architecture decision trainer.
+              </p>
+            </div>
+            <Link
+              href="/demos"
+              className="rounded-xl bg-accent-strong px-6 py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+            >
+              Open interactive demos →
+            </Link>
+          </div>
+          <ul className="mt-8 grid gap-3 md:grid-cols-3">
+            {[
+              ["Workflow pattern explorer", "All six agentic shapes, side by side"],
+              ["Context window simulator", "Watch sessions fill up, then compact"],
+              ["MCP architecture map", "Hosts, clients, servers & primitives"],
+            ].map(([t, d]) => (
+              <li key={t} className="rounded-xl border border-line bg-background p-5">
+                <p className="font-semibold">{t}</p>
+                <p className="mt-1 text-sm text-muted">{d}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
       <section className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
         <div className="grid gap-4 md:grid-cols-3">
           {[
@@ -151,7 +188,7 @@ export default function HomePage() {
             {
               href: "/practice",
               title: "Practice with explanations",
-              body: "30+ original questions across all five domains — every answer fully explained.",
+              body: "45+ original questions across all five domains — every answer fully explained.",
             },
             {
               href: "/mock-exam",

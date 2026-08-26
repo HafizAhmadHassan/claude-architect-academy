@@ -112,6 +112,7 @@ Do not use for order history — use get_orders instead.",
       "Transport choice drives deployment shape: stdio means local install; HTTP enables centralized managed servers.",
       "Resource-vs-tool classification questions are common because the distinction is architectural, not cosmetic.",
     ],
+    diagram: "mcp-architecture",
     simpleExample: {
       title: "Capability map",
       body: "One server, correctly classified capabilities:",

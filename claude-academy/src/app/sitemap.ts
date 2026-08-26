@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/domains/agentic-architecture/lessons/the-agentic-loop",
     "/practice",
     "/scenarios",
+    "/demos",
     "/labs",
     "/labs/mcp-server",
     "/mock-exam",

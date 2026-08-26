@@ -203,6 +203,7 @@ trace.emit("agent.iteration", { spanId, inputHash,
       "RAG integration patterns appear across multiple domain blueprints.",
       "Cost optimization through context management is a real-world architectural concern.",
     ],
+    diagram: "context-window",
     simpleExample: {
       title: "Hierarchical context loading",
       body: "Load summary first, expand on demand:",

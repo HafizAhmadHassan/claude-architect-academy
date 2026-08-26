@@ -25,6 +25,7 @@ export const domain1Lessons: Lesson[] = [
       "Orchestration is the standard fix for tool-selection confusion and unbounded prompt growth in production incidents.",
       "Every layer adds latency and cost; knowing when NOT to orchestrate is equally testable.",
     ],
+    diagram: "workflow-patterns",
     simpleExample: {
       title: "Research-and-write pipeline",
       body: "An orchestrator splits 'write a briefing on topic X' into research and drafting subagents. The researcher returns sources with relevance scores; the writer receives only those summaries.",

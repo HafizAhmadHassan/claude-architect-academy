@@ -48,7 +48,7 @@ export interface Lesson {
   objectives: string[];
   explanation: { heading: string; body: string[] };
   whyItMatters: string[];
-  diagram?: "agentic-loop";
+  diagram?: "agentic-loop" | "workflow-patterns" | "mcp-architecture" | "context-window";
   simpleExample: LessonExample;
   productionExample: LessonExample;
   antiPattern: { name: string; wrong: string; consequence: string; fix: string };

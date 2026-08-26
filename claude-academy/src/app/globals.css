@@ -89,3 +89,28 @@ body {
 .animate-slide-up {
   animation: slide-up 0.3s ease-out;
 }
+
+@keyframes flow-dash {
+  to {
+    stroke-dashoffset: -16;
+  }
+}
+
+.flow-dash {
+  stroke-dasharray: 8 8;
+  animation: flow-dash 0.9s linear infinite;
+}
+
+@keyframes soft-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.soft-pulse {
+  animation: soft-pulse 1.8s ease-in-out infinite;
+}

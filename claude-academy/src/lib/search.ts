@@ -3,7 +3,6 @@ import { lessons } from "@/lib/content/lessons";
 import { patterns } from "@/lib/content/patterns";
 import { projects } from "@/lib/content/projects";
 import { practiceQuestions } from "@/lib/content/questions/practice-questions";
-import { moreQuestions } from "@/lib/content/questions/more-questions";
 import { labs } from "@/lib/content/labs/labs";
 import { labsCoreExtra } from "@/lib/content/labs/labs-core-extra";
 import { labsAdvanced } from "@/lib/content/labs/labs-advanced";
@@ -39,8 +38,7 @@ export function searchContent(query: string): SearchResult[] {
     }
   }
 
-  const allQ = [...practiceQuestions, ...moreQuestions];
-  for (const question of allQ) {
+  for (const question of practiceQuestions) {
     if (
       question.question.toLowerCase().includes(q) ||
       question.tags.some((t) => t.toLowerCase().includes(q))
@@ -98,6 +96,58 @@ export function searchContent(query: string): SearchResult[] {
         url: "/projects",
       });
     }
+  }
+
+  const demoEntries: SearchResult[] = [
+    {
+      type: "resource",
+      title: "Interactive demos",
+      description: "Visual, hands-on walkthroughs of the core exam concepts.",
+      url: "/demos",
+    },
+    {
+      type: "resource",
+      title: "Workflow patterns explorer",
+      description:
+        "Animated diagrams of chaining, routing, parallelization, orchestrator-workers, evaluator-optimizer, and agents.",
+      url: "/demos",
+    },
+    {
+      type: "resource",
+      title: "Context window simulator",
+      description:
+        "Watch a session fill a context window and apply checkpoint compaction.",
+      url: "/demos",
+    },
+    {
+      type: "resource",
+      title: "MCP architecture diagram",
+      description:
+        "Host, clients, servers, primitives, and transports per the MCP specification.",
+      url: "/demos",
+    },
+    {
+      type: "resource",
+      title: "Workflow vs. agent decision helper",
+      description:
+        "Rehearse choosing the least complex architecture that meets the requirement.",
+      url: "/demos",
+    },
+  ];
+  const demoTerms = [
+    "demo",
+    "demos",
+    "visual",
+    "workflow",
+    "pattern explorer",
+    "context window",
+    "mcp architecture",
+    "decision",
+    "orchestrator",
+    "compaction",
+  ];
+  if (demoTerms.some((t) => q.includes(t))) {
+    results.push(...demoEntries);
   }
 
   return results.slice(0, 25);

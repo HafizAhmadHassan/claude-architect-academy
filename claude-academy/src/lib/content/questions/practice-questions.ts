@@ -1,5 +1,7 @@
 import type { PracticeQuestion } from "../types";
 import { moreQuestions } from "./more-questions";
+import { researchQuestions } from "./research-questions";
+import { lessonExamQuestions } from "./lesson-exam-questions";
 
 const OFFICIAL_NOTE =
   "Practice question — not an official Anthropic exam question.";
@@ -445,4 +447,6 @@ export const practiceQuestions: PracticeQuestion[] = [
 ];
 
 practiceQuestions.push(...moreQuestions);
+practiceQuestions.push(...researchQuestions);
+practiceQuestions.push(...lessonExamQuestions);
 

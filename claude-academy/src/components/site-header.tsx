@@ -12,6 +12,7 @@ const primaryNav = [
   { href: "/domains", label: "Domains" },
   { href: "/labs", label: "Labs" },
   { href: "/practice", label: "Practice Questions" },
+  { href: "/demos", label: "Demos" },
 ];
 
 const secondaryNav = [

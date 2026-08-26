@@ -98,7 +98,7 @@ for (const t of weeklyTasks) {
   if (!taskWeeks.has(t.week)) continue;
 }
 for (const t of weeklyTasks) {
-  if (t.href?.startsWith("/") && !/^\/(certification|diagnostic|domains|labs|mock-exam|patterns|practice|projects|resources|roadmap|scenarios|flashcards|progress)(\/|$)/.test(t.href)) {
+  if (t.href?.startsWith("/") && !/^\/(certification|diagnostic|demos|domains|labs|mock-exam|patterns|practice|projects|resources|roadmap|scenarios|flashcards|progress)(\/|$)/.test(t.href)) {
     warn(`weekly task ${t.id}: suspicious internal href ${t.href}`);
   }
 }
