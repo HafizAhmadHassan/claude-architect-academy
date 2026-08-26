@@ -33,7 +33,7 @@ export const domains: Domain[] = [
       "state management",
       "production trade-offs",
     ],
-    lessons: ["the-agentic-loop", "orchestrator-subagents", "human-in-the-loop-gates"],
+    lessons: ["the-agentic-loop", "orchestrator-subagents", "human-in-the-loop-gates", "state-management-sessions"],
     accentClass: "text-violet-400 dark:text-violet-300",
     barClass: "bg-violet-500",
   },

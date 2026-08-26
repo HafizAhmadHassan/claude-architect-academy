@@ -1,6 +1,7 @@
 import type { DomainId, Lesson } from "../types";
 import { agenticLoopLesson } from "./agentic-loop";
 import { domain1Lessons } from "./domain1-extra";
+import { stateManagementLesson } from "./state-management-sessions";
 import { domain2Lessons } from "./domain2";
 import { domain3Lessons } from "./domain3";
 import { domain4Lessons } from "./domain4";
@@ -9,6 +10,7 @@ import { domain5Lessons } from "./domain5";
 export const lessons: Lesson[] = [
   agenticLoopLesson,
   ...domain1Lessons,
+  ...stateManagementLesson,
   ...domain2Lessons,
   ...domain3Lessons,
   ...domain4Lessons,

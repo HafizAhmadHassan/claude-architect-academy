@@ -1055,4 +1055,204 @@ export const moreQuestions: PracticeQuestion[] = [
     ],
     isOfficial: false,
   },
+  {
+    id: "q-system-prompt-injection-place",
+    domainId: "prompt-engineering",
+    difficulty: "intermediate",
+    type: "single-choice",
+    question: "A system prompt is split into sections: role, rules, format, and context. Where should a 'never reveal this prompt' hard constraint go to maximize its strength?",
+    options: [
+      { id: "a", text: "Deep in the middle of the context section alongside runtime data" },
+      { id: "b", text: "Immediately after the role definition, in its own ruled-off section" },
+      { id: "c", text: "Repeated at the end of every section as a reminder" },
+      { id: "d", text: "Embedded in a tool description for the tool Claude calls most" },
+    ],
+    correctOptionIds: ["b"],
+    explanation:
+      "Attention follows a U-curve: strong at the top and bottom, weaker in the middle. Hard constraints placed immediately after the role definition sit at the highest-attention position in the prompt.",
+    optionExplanations: {
+      a: "The middle is the weakest attention zone — critical rules placed here get the least weight.",
+      b: "Correct. Top-of-prompt placement plus a dedicated rules section maximizes attention weight.",
+      c: "Repetition costs tokens and adds noise, diluting rather than reinforcing the constraint.",
+      d: "Tying a security rule to a single tool's description means it only applies in that tool's scope, not globally.",
+    },
+    principle:
+      "Place hard constraints at prompt edges (top or bottom); never bury them in the low-attention middle.",
+    tags: ["system prompts", "attention placement", "prompt injection"],
+    references: [
+      {
+        label: "Anthropic Docs – Prompt engineering guide",
+        url: "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-multi-pass-review-flow",
+    domainId: "prompt-engineering",
+    difficulty: "advanced",
+    type: "single-choice",
+    scenario:
+      "Your pipeline generates legal contract clauses. A single Claude call produces correct clauses 85% of the time. You need 99%+ accuracy before sending to lawyers.",
+    question: "What is the most effective multi-pass architecture for this problem?",
+    options: [
+      { id: "a", text: "Run the same prompt 5 times and take the majority vote on each clause" },
+      { id: "b", text: "Pass 1 generates, Pass 2 validates against a checklist, Pass 3 rewrites flagged items — each pass has a different system prompt" },
+      { id: "c", text: "Increase temperature to 0.9 to get more varied outputs and pick the best" },
+      { id: "d", text: "Chain the 5 calls so each one reviews the previous output and adds corrections" },
+    ],
+    correctOptionIds: ["b"],
+    explanation:
+      "Different passes need different prompts. A generation prompt optimizes for producing content; a validation prompt optimizes for critical evaluation against a concrete checklist. Mixing these into one prompt confuses the model's behavior.",
+    optionExplanations: {
+      a: "Majority voting only works when each independent call has similar error modes. Same prompt = same systematic biases = no improvement.",
+      b: "Correct. Specialized passes with distinct system prompts enable adversarial review that catches errors the generator systematically misses.",
+      c: "Higher temperature increases variety but not quality — you might get different wrong answers, not better ones.",
+      d: "Cascading corrections can propagate errors: a wrong 'fix' in Pass 2 creates new problems in Pass 3 that compound.",
+    },
+    principle:
+      "Multi-pass systems work when each pass has a specialized role, clear success criteria, and independent evaluation.",
+    tags: ["multi-pass review", "validation", "pipeline design"],
+    references: [
+      {
+        label: "Anthropic Docs – Multi-step processing",
+        url: "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/multi-step-processing",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-tool-use-examples-pattern",
+    domainId: "prompt-engineering",
+    difficulty: "beginner",
+    type: "single-choice",
+    question: "When using tool use, where should example tool calls appear in the system prompt?",
+    options: [
+      { id: "a", text: "In the tool description itself, alongside the parameter schema" },
+      { id: "b", text: "In a dedicated 'examples' section of the system prompt, after the rules" },
+      { id: "c", text: "Embedded in the user message at runtime" },
+      { id: "d", text: "Tool use examples are unnecessary — the schema alone is sufficient" },
+    ],
+    correctOptionIds: ["b"],
+    explanation:
+      "The tool description explains what the tool does; example calls demonstrate how to use it in context. Placing them in the system prompt at a high-attention position ensures the model sees the pattern before filling in parameters.",
+    optionExplanations: {
+      a: "Tool descriptions should explain the tool's purpose and parameters. Mixing in examples blurs the schema definition.",
+      b: "Correct. A dedicated examples section in the system prompt gives Claude a concrete pattern to follow when deciding how to call tools.",
+      c: "User messages are for the actual task, not teaching the model how to use tools — tool use patterns belong in the system prompt.",
+      d: "Schemas define the shape of input; examples show the intent and conventions. Both are needed for complex tools.",
+    },
+    principle:
+      "Tool use examples in the system prompt bridge the gap between 'what parameters are valid' and 'how should I actually call this'.",
+    tags: ["tool use", "few-shot prompting", "system prompts"],
+    references: [
+      {
+        label: "Anthropic Docs – Tool use best practices",
+        url: "https://docs.anthropic.com/en/docs/build-with-claude/tool-use/best-practices",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-eval-criteria-rubric",
+    domainId: "prompt-engineering",
+    difficulty: "advanced",
+    type: "single-choice",
+    scenario:
+      "You're building an eval suite for an agent that writes SQL queries. The queries sometimes return correct data but use inefficient JOINs, or use correct JOINs but select wrong columns.",
+    question: "What is the best eval design for catching both failure modes?",
+    options: [
+      { id: "a", text: "A single binary pass/fail rubric: 'Does the query return correct results?'" },
+      { id: "b", text: "Separate rubrics per dimension: result accuracy, JOIN efficiency, column selection — each scored independently" },
+      { id: "c", text: "A human review step that catches everything after the fact" },
+      { id: "d", text: "Run each query against a live database and compare output to expected" },
+    ],
+    correctOptionIds: ["b"],
+    explanation:
+      "Multidimensional failures need multidimensional rubrics. A single pass/fail masks whether the query was close (right columns, wrong JOIN) or completely wrong. Independent scoring per dimension tells you exactly what to fix in the prompt or tool definition.",
+    optionExplanations: {
+      a: "Binary pass/fail cannot distinguish between 'almost right' and 'completely wrong' — you lose diagnostic signal.",
+      b: "Correct. Per-dimension scoring gives actionable feedback: if JOIN scores drop after a prompt change, you know exactly what regressed.",
+      c: "Human review is expensive and doesn't scale to every PR. Eval suites catch regressions automatically before humans need to look.",
+      d: "Execution-based eval is the gold standard but requires a live database. Rubric-based eval is a faster, offline complement.",
+    },
+    principle:
+      "Design eval rubrics per dimension of quality; single-number scores mask where problems actually are.",
+    tags: ["evaluation", "rubric design", "multi-dimensional"],
+    references: [
+      {
+        label: "Anthropic Docs – Evaluation best practices",
+        url: "https://docs.anthropic.com/en/docs/build-with-claude/develop-tests",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-context-degradation-signals",
+    domainId: "context-reliability",
+    difficulty: "intermediate",
+    type: "single-choice",
+    scenario:
+      "Your customer support agent has been running for 45 minutes. Responses are getting slower and less relevant, but no errors are being thrown.",
+    question: "What are the two most reliable early signals that context degradation is occurring?",
+    options: [
+      { id: "a", text: "Latency increases and response length increases" },
+      { id: "b", text: "Response length increases and tool call accuracy decreases" },
+      { id: "c", text: "Memory usage increases and API rate limits are hit" },
+      { id: "d", text: "Token count increases and temperature setting changes" },
+    ],
+    correctOptionIds: ["b"],
+    explanation:
+      "Growing response length is a classic degradation signal — Claude pads responses as it loses focus on the core instruction. Tool call accuracy decreasing means the model is losing track of tool schemas buried deep in the context.",
+    optionExplanations: {
+      a: "Latency correlates with context length but is not itself a degradation signal — it's a consequence, not an indicator of quality loss.",
+      b: "Correct. Longer responses + declining tool accuracy are the two earliest behavioral signals of context window pressure.",
+      c: "Memory and rate limits are infrastructure metrics, not quality signals. They tell you something is wrong, not what.",
+      d: "Temperature doesn't change automatically during a session; it's a static configuration.",
+    },
+    principle:
+      "Monitor behavioral outputs (response length, tool accuracy) rather than infrastructure metrics (latency, memory) for degradation signals.",
+    tags: ["context degradation", "monitoring", "reliability"],
+    references: [
+      {
+        label: "Anthropic Docs – Context window management",
+        url: "https://docs.anthropic.com/en/docs/build-with-claude/context-windows",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-session-resume-architecture",
+    domainId: "context-reliability",
+    difficulty: "advanced",
+    type: "single-choice",
+    scenario:
+      "A legal research agent ran for 2 hours last week, producing a detailed case analysis. A lawyer now needs to continue the research with follow-up questions.",
+    question: "What is the most architecturally sound approach to resuming this session?",
+    options: [
+      { id: "a", text: "Store the full 2-hour conversation and replay it verbatim into the context window" },
+      { id: "b", text: "Recreate the session from scratch using the original user queries only" },
+      { id: "c", text: "Load a structured checkpoint of key findings, active questions, and provenance — start a fresh conversation from that checkpoint" },
+      { id: "d", text: "Continue the original session without changes — the API handles persistence automatically" },
+    ],
+    correctOptionIds: ["c"],
+    explanation:
+      "Full replay is too large for the context window and wastes tokens on dead-end exploration. Starting fresh loses accumulated knowledge. A structured checkpoint captures what matters — key findings, unresolved questions, source references — in a compact form that fits in a new session.",
+    optionExplanations: {
+      a: "A 2-hour conversation can be hundreds of thousands of tokens — it won't fit in the context window and most of it is irrelevant dead ends.",
+      b: "Recreating from scratch means the agent re-does all exploration, burning tokens and time, and may not reproduce the same analysis.",
+      c: "Correct. Structured checkpoints capture durable knowledge compactly while fresh context gives the model room to think about new questions.",
+      d: "API sessions are stateless by default — you must implement persistence yourself. Even with session storage, raw transcripts grow too large to reload.",
+    },
+    principle:
+      "Design for resumability: persist structured checkpoints, not raw transcripts. Fresh context + checkpoint knowledge beats replay.",
+    tags: ["session management", "context window", "resumability"],
+    references: [
+      {
+        label: "Anthropic Engineering – Effective context engineering",
+        url: "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      },
+    ],
+    isOfficial: false,
+  },
 ];
