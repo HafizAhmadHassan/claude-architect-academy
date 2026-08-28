@@ -1255,4 +1255,206 @@ export const moreQuestions: PracticeQuestion[] = [
     ],
     isOfficial: false,
   },
+  {
+    id: "q-tool-failure-budget",
+    domainId: "agentic-architecture",
+    difficulty: "intermediate",
+    type: "debugging",
+    scenario:
+      "Your agent calls send_webhook and it fails with a 503 three times in a row. After the third failure the loop crashes and the whole run is lost, even though the underlying task was mostly complete.",
+    question: "What is the most robust fix?",
+    options: [
+      { id: "a", text: "Raise the retry count to 20 and keep the same synchronous retry loop" },
+      { id: "b", text: "Wrap tool calls in a budgeted retry with circuit-breaking, and record partial progress so the run can resume" },
+      { id: "c", text: "Catch the exception and silently continue without recording that the call failed" },
+      { id: "d", text: "Switch to a model with lower latency so retries finish faster" },
+    ],
+    correctOptionIds: ["b"],
+    explanation:
+      "Unbounded or naive retries don't address partial failure, and crashing discards completed work. A retry budget with backoff plus durable progress checkpoints lets the run survive transient failures and resume where it left off.",
+    optionExplanations: {
+      a: "More retries without a budget or circuit breaker still blocks the loop and can burn tokens/time on a permanently-down dependency.",
+      b: "Correct. Budgeted retries with backoff handle transience; checkpointed progress prevents total loss on failure.",
+      c: "Swallowing errors hides real problems and produces confidently wrong results with no audit trail.",
+      d: "Latency does not fix availability; a 503 is a server-side problem, not a model-speed problem.",
+    },
+    principle:
+      "Make external calls resilient (budget + backoff + circuit breaker) and persist progress so failures are recoverable, not fatal.",
+    tags: ["tool reliability", "retries", "fault tolerance"],
+    references: [
+      {
+        label: "Anthropic Docs – Tool use (error handling)",
+        url: "https://docs.anthropic.com/en/docs/build-with-claude/tool-use/overview",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-mcp-transport-choice",
+    domainId: "tool-design-mcp",
+    difficulty: "advanced",
+    type: "architecture-decision",
+    scenario:
+      "You are exposing internal company tools to a Claude-powered assistant. Some tools run as local CLI utilities on the user's machine; others are hosted services shared across a team of 100 users.",
+    question: "How should you choose the MCP transport for each tool class?",
+    options: [
+      { id: "a", text: "Use stdio for everything because it is simplest to implement" },
+      { id: "b", text: "Use stdio for local CLI tools and a streamable HTTP/SSE server for shared hosted tools" },
+      { id: "c", text: "Use HTTP for local tools and stdio for hosted tools" },
+      { id: "d", text: "Avoid MCP entirely and hardcode tool calls in the client" },
+    ],
+    correctOptionIds: ["b"],
+    explanation:
+      "stdio is ideal for local, per-process tools because it needs no networking and shares the process lifecycle. Hosted, multi-user tools belong on a streamable HTTP/SSE server that can be authenticated, scaled, and shared independently of any single client process.",
+    optionExplanations: {
+      a: "stdio cannot serve 100 remote users from one process and forces every client to spawn the tool locally.",
+      b: "Correct. Match transport to deployment shape: local process → stdio; shared service → HTTP/SSE.",
+      c: "Reverses the natural fit: stdio can't be reached over a network, and HTTP adds needless overhead for a purely local tool.",
+      d: "Dropping MCP forfeits the standardized, discoverable tool layer and re-introduces bespoke integration cost.",
+    },
+    principle:
+      "Select MCP transport by deployment topology: stdio for local tools, streamable HTTP/SSE for shared/hosted tools.",
+    tags: ["mcp", "transport", "architecture"],
+    references: [
+      {
+        label: "MCP Docs – Transports",
+        url: "https://modelcontextprotocol.io/docs/concepts/transports",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-prompt-instruction-data-separation",
+    domainId: "prompt-engineering",
+    difficulty: "beginner",
+    type: "single-choice",
+    question:
+      "A support agent prompt embeds user-submitted ticket text directly inside the system instructions. What is the main risk?",
+    options: [
+      { id: "a", text: "The model becomes slower but outputs are unaffected" },
+      { id: "b", text: "Untrusted input can masquerade as instructions (prompt injection) and the instruction/data boundary blurs" },
+      { id: "c", text: "The context window is never large enough for ticket text" },
+      { id: "d", text: "It improves grounding because the data is closer to the instructions" },
+    ],
+    correctOptionIds: ["b"],
+    explanation:
+      "Mixing untrusted data into the instruction channel lets a malicious ticket append directives the model may obey. Keep instructions and external data in separate, clearly delimited sections so the model treats data as data.",
+    optionExplanations: {
+      a: "Speed is not the core issue; correctness and safety are.",
+      b: "Correct. Blurring the boundary enables injection and makes intent ambiguous.",
+      c: "Context size is a separate concern; the risk exists regardless of length.",
+      d: "Proximity does not improve grounding and actively increases injection risk.",
+    },
+    principle:
+      "Separate instructions from untrusted data with clear delimiters; never let user input sit in the instruction channel.",
+    tags: ["prompt injection", "prompt structure"],
+    references: [
+      {
+        label: "Anthropic Docs – Prompt engineering overview",
+        url: "https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/overview",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-context-contamination",
+    domainId: "context-reliability",
+    difficulty: "intermediate",
+    type: "multiple-response",
+    scenario:
+      "Your multi-step agent processes three customer records in one session. You notice later answers reference details from record #1 while handling record #3.",
+    question: "Which practices reduce this cross-request context contamination? (Select all that apply.)",
+    options: [
+      { id: "a", text: "Reset or scope the working context per record instead of reusing one growing transcript" },
+      { id: "b", text: "Attach explicit source references to each fact the agent records" },
+      { id: "c", text: "Increase the context window size so all records fit comfortably" },
+      { id: "d", text: "Isolate each record's tool results and intermediate notes from sibling records" },
+    ],
+    correctOptionIds: ["a", "b", "d"],
+    explanation:
+      "Contamination comes from letting unrelated data share one undifferentiated context. Scoping per record, tagging facts with provenance, and isolating per-record artifacts all keep each task's context clean. A bigger window just gives contamination more room.",
+    optionExplanations: {
+      a: "Scoping/resetting per unit of work prevents stale data from leaking across items.",
+      b: "Provenance lets the agent (and reviewers) distinguish which record a fact came from.",
+      c: "More capacity does not prevent blending; it enables accumulating more cross-contamination.",
+      d: "Isolation stops one record's tool output from influencing another's reasoning.",
+    },
+    principle:
+      "Scope contexts per unit of work and tag facts with provenance to prevent cross-request contamination.",
+    tags: ["context isolation", "provenance", "multi-tenant"],
+    references: [
+      {
+        label: "Anthropic Engineering – Effective context engineering",
+        url: "https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-claude-code-pretool-hook",
+    domainId: "claude-code-workflows",
+    difficulty: "advanced",
+    type: "trade-off-analysis",
+    scenario:
+      "You want to stop Claude Code from running destructive bash commands (rm -rf, force-push) without explicit human approval.",
+    question: "What is the best trade-off when implementing this guardrail?",
+    options: [
+      { id: "a", text: "Block all bash commands globally — safest, simplest" },
+      { id: "b", text: "Use a PreToolUse hook that inspects the command and blocks only dangerous patterns, allowing safe commands to proceed" },
+      { id: "c", text: "Rely solely on the model refusing — no programmatic gate needed" },
+      { id: "d", text: "Disable tool use entirely and paste outputs manually" },
+    ],
+    correctOptionIds: ["b"],
+    explanation:
+      "A PreToolUse hook gives programmatic, structural safety exactly where risk lives, while preserving productivity for safe commands. Blunt global blocks or disabling tools trade away too much usefulness, and model self-restraint is not a reliable control.",
+    optionExplanations: {
+      a: "Maximum false positives: blocks legitimate work and frustrates users into bypassing the guardrail.",
+      b: "Correct. Targeted, structural interception balances safety and productivity.",
+      c: "Model refusal is not a dependable control; guardrails should be deterministic.",
+      d: "Defeats the purpose of an agentic coding tool.",
+    },
+    principle:
+      "Enforce safety structurally at the tool boundary (hooks), targeting risk precisely rather than bluntly disabling capability.",
+    tags: ["claude code", "hooks", "guardrails"],
+    references: [
+      {
+        label: "Claude Code Docs – Hooks",
+        url: "https://docs.anthropic.com/en/docs/claude-code/hooks",
+      },
+    ],
+    isOfficial: false,
+  },
+  {
+    id: "q-subagent-when",
+    domainId: "agentic-architecture",
+    difficulty: "beginner",
+    type: "single-choice",
+    question:
+      "When is spawning a subagent the right call versus handling the task in the main loop?",
+    options: [
+      { id: "a", text: "Whenever the task is long, to keep the main context small and return only structured findings" },
+      { id: "b", text: "Always, because subagents are faster than a single loop" },
+      { id: "c", text: "Never, subagents only add latency" },
+      { id: "d", text: "Only for tasks that require internet access" },
+    ],
+    correctOptionIds: ["a"],
+    explanation:
+      "Subagents shine for long, self-contained work: they explore with their own context and return a compact, structured brief, keeping the orchestrator's context clean. They are not universally faster and are not defined by network access.",
+    optionExplanations: {
+      a: "Correct. Use subagents to bound context growth and return focused results.",
+      b: "Spawning has overhead; they help by isolating context, not by being inherently faster.",
+      c: "They provide real value via context isolation and parallelism.",
+      d: "Network access is unrelated to the subagent decision.",
+    },
+    principle:
+      "Use subagents to contain context and parallelize independent work, returning only structured findings to the orchestrator.",
+    tags: ["subagents", "context management"],
+    references: [
+      {
+        label: "Anthropic Docs – Agentic design",
+        url: "https://docs.anthropic.com/en/docs/build-with-claude/agentic-design",
+      },
+    ],
+    isOfficial: false,
+  },
 ];
