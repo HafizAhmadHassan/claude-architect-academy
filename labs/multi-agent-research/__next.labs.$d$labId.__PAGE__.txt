@@ -1,0 +1,114 @@
+1:"$Sreact.fragment"
+2:I[22016,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],""]
+d:X
+12:X
+12:C
+0:{"buildId":"klw3iz53yaXIh7ZefUiWv","data":[{"rsc":["$","$1","c",{"children":[["$","article",null,{"className":"mx-auto max-w-4xl px-4 py-12 sm:px-6","children":[["$","nav",null,{"aria-label":"Breadcrumb","className":"text-sm text-muted","children":["$","$L2",null,{"href":"/labs","className":"hover:text-foreground","children":"Labs"}]}],["$","header",null,{"className":"mt-6","children":[["$","div",null,{"className":"flex flex-wrap items-center gap-2","children":[["$","span",null,{"className":"inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium border-accent/40 bg-accent-soft text-accent","children":"Live lab"}],["$","span",null,{"className":"inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium border-line bg-panel-2 text-muted","children":["~",90," minutes"]}]]}],["$","h1",null,{"className":"mt-4 text-3xl font-bold tracking-tight sm:text-4xl","children":"Orchestrator + subagent research system"}]]}],["$","section",null,{"className":"mt-8 rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-accent","children":"Objective"}],["$","p",null,{"className":"mt-3 leading-relaxed text-muted","children":"Build a three-agent research system — one orchestrator, parallel researcher subagents, one writer — practicing scoped briefs, fan-out/fan-in, and findings-with-provenance handoffs instead of transcript dumps."}]]}],["$","section",null,{"className":"mt-8 grid gap-4 sm:grid-cols-2","children":[["$","div",null,{"className":"rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-muted","children":"Prerequisites"}],["$","ul",null,{"className":"mt-3 list-inside list-disc space-y-1.5 text-sm text-muted","children":[["$","li","An Anthropic API key",{"children":"An Anthropic API key"}],["$","li","Completed the tool-use agent loop lab",{"children":"Completed the tool-use agent loop lab"}],["$","li","Comfort with Promise.all for parallel dispatch",{"children":"Comfort with Promise.all for parallel dispatch"}]]}]]}],["$","div",null,{"className":"rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-blue","children":"Architecture"}],["$","ul",null,{"className":"mt-3 list-inside list-disc space-y-1.5 text-sm text-muted","children":[["$","li","The orchestrator decomposes the ",{"children":"The orchestrator decomposes the question into independent sub-questions, spawns one researcher per sub-question in parallel, then feeds structured findings to a single writer."}],["$","li","Subagents receive a focused brie",{"children":"Subagents receive a focused brief (question, constraints, required output shape) — never the whole conversation. They return findings with source URLs and relevance scores."}],["$","li","Parallelize independence: resear",{"children":"Parallelize independence: researchers run concurrently via Promise.all; the writer waits because it depends on every input (fan-in)."}],["$","li","Context passing is by contract: ",{"children":"Context passing is by contract: {claim, source, confidence} tuples, not transcripts. The writer's prompt stays small regardless of how much the researchers explored."}]]}]]}]]}],["$","section",null,{"className":"mt-12","children":[["$","h2",null,{"className":"text-xl font-bold","children":"Steps"}],["$","ol",null,{"className":"mt-6 space-y-10","children":[["$","li","Define the finding contract",{"className":"relative pl-14","children":[["$","span",null,{"aria-hidden":true,"className":"absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-xl bg-accent-strong font-mono text-sm font-bold text-white","children":1}],["$","h3",null,{"className":"pt-1.5 font-semibold","children":"Define the finding contract"}],"$L3","$L4"]}],"$L5","$L6","$L7"]}]]}],"$L8","$L9","$La"]}],null,"$Lb"]}],"isPartial":"$@c","staleTime":"$d","varyParams":null},{"rsc":"$Le","isPartial":"$@f","staleTime":"$d","varyParams":null},{"rsc":"$L10","isPartial":"$@11","staleTime":"$d","varyParams":"$12"},{"rsc":"$L13","isPartial":"$@14","staleTime":"$d","varyParams":"$12"}],"isUpgradeableISRFallback":false,"a":"$@15","rootVaryParams":null,"needsRuntimeRequest":"$@16"}
+19:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"OutletBoundary"]
+1a:"$Sreact.suspense"
+1c:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"ViewportBoundary"]
+1d:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"MetadataBoundary"]
+1e:I[27201,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"IconMark"]
+1f:I[39756,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"default"]
+20:I[37457,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"default"]
+3:["$","p",null,{"className":"mt-2 text-sm leading-relaxed text-muted","children":"Everything agents exchange flows through this shape. It is what makes handoffs auditable."}]
+4:["$","figure",null,{"className":"mt-4 overflow-hidden rounded-xl border border-line bg-panel-2","children":[["$","figcaption",null,{"className":"flex items-center justify-between border-b border-line px-4 py-2.5 text-xs","children":[["$","span",null,{"className":"font-mono font-semibold text-muted","children":"src/types.ts"}],["$","span",null,{"className":"uppercase tracking-wide text-muted","children":"typescript"}]]}],["$","pre",null,{"className":"overflow-x-auto p-4 text-[13px] leading-relaxed","children":["$","code",null,{"className":"font-mono","children":"export interface Finding {\n  claim: string;\n  source_url: string;\n  quote: string;\n  confidence: number; // 0..1, from labeled rubric\n}\n\nexport interface Brief {\n  question: string;\n  constraints: string[];\n  requiredFindings: number;\n}\n\nexport interface ResearchResult {\n  brief: Brief;\n  findings: Finding[];\n  tokensUsed: number;\n}"}]}]]}]
+17:T4dc,import Anthropic from "@anthropic-ai/sdk";
+import type { Brief, ResearchResult, Finding } from "./types.js";
+
+const client = new Anthropic();
+
+const CORPUS = [
+  { url: "https://docs.example.com/r1", text: "Study A found X improves throughput 40%." },
+  { url: "https://blog.example.com/r2", text: "Practitioners report X regresses latency at scale." },
+];
+
+export async function research(brief: Brief): Promise<ResearchResult> {
+  const res = await client.messages.create({
+    model: "claude-haiku-4-5",
+    max_tokens: 1500,
+    system:
+      "You are a research agent. Answer ONLY from the provided corpus. " +
+      "Return strict JSON: {findings:[{claim, source_url, quote, confidence}]}. " +
+      "Every claim needs a verbatim quote from its cited source.",
+    messages: [{
+      role: "user",
+      content: `QUESTION: ${brief.question}\nCONSTRAINTS: ${brief.constraints.join("; ")}\n\nCORPUS:\n${JSON.stringify(CORPUS)}`,
+    }],
+  });
+
+  const text = res.content
+    .filter((b): b is Anthropic.TextBlock => b.type === "text")
+    .map((b) => b.text)
+    .join("");
+  const findings: Finding[] = JSON.parse(text).findings;
+
+  return {
+    brief,
+    findings,
+    tokensUsed: res.usage.input_tokens + res.usage.output_tokens,
+  };
+}5:["$","li","Implement a researcher subagent",{"className":"relative pl-14","children":[["$","span",null,{"aria-hidden":true,"className":"absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-xl bg-accent-strong font-mono text-sm font-bold text-white","children":2}],["$","h3",null,{"className":"pt-1.5 font-semibold","children":"Implement a researcher subagent"}],["$","p",null,{"className":"mt-2 text-sm leading-relaxed text-muted","children":"Each researcher gets only its brief. In production its tools would be web search; here a mock corpus keeps the lab offline-friendly while preserving the contract."}],["$","figure",null,{"className":"mt-4 overflow-hidden rounded-xl border border-line bg-panel-2","children":[["$","figcaption",null,{"className":"flex items-center justify-between border-b border-line px-4 py-2.5 text-xs","children":[["$","span",null,{"className":"font-mono font-semibold text-muted","children":"src/researcher.ts"}],["$","span",null,{"className":"uppercase tracking-wide text-muted","children":"typescript"}]]}],["$","pre",null,{"className":"overflow-x-auto p-4 text-[13px] leading-relaxed","children":["$","code",null,{"className":"font-mono","children":"$17"}]}]]}]]}]
+18:T639,import { research } from "./researcher.js";
+import type { ResearchResult } from "./types.js";
+
+export async function orchestrate(topic: string) {
+  const briefs = decompose(topic);
+
+  // Fan-out: researchers are independent -> parallel
+  const results: ResearchResult[] = await Promise.all(
+    briefs.map((b) => research(b))
+  );
+
+  // Fan-in: writer depends on ALL results -> after Promise.all
+  const report = await writeReport(topic, results);
+
+  return { report, totalTokens: results.reduce((s, r) => s + r.tokensUsed, 0) };
+}
+
+function decompose(topic: string) {
+  // In production an LLM call produces these; fixed here for reproducibility
+  return [
+    { question: `Evidence FOR ${topic}`, constraints: ["cite corpus"], requiredFindings: 2 },
+    { question: `Evidence AGAINST ${topic}`, constraints: ["cite corpus"], requiredFindings: 2 },
+  ];
+}
+
+async function writeReport(topic: string, results: ResearchResult[]) {
+  const findings = results.flatMap((r) =>
+    r.findings.map((f) => ({ ...f, question: r.brief.question }))
+  );
+  const client = new Anthropic();
+  const res = await client.messages.create({
+    model: "claude-sonnet-4-5",
+    max_tokens: 2000,
+    system:
+      "Synthesize a balanced report. Cite sources inline as [url]. " +
+      "Never state claims absent from the findings.",
+    messages: [{
+      role: "user",
+      content: `TOPIC: ${topic}\n\nFINDINGS:\n${JSON.stringify(findings, null, 2)}`,
+    }],
+  });
+  return res.content
+    .filter((b): b is import("@anthropic-ai/sdk").TextBlock => b.type === "text")
+    .map((b) => b.text)
+    .join("\n");
+}6:["$","li","Wire the orchestrator with fan-out/fan-in",{"className":"relative pl-14","children":[["$","span",null,{"aria-hidden":true,"className":"absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-xl bg-accent-strong font-mono text-sm font-bold text-white","children":3}],["$","h3",null,{"className":"pt-1.5 font-semibold","children":"Wire the orchestrator with fan-out/fan-in"}],["$","p",null,{"className":"mt-2 text-sm leading-relaxed text-muted","children":"Decompose, dispatch in parallel, wait for all, then hand compact findings — not transcripts — to the writer."}],["$","figure",null,{"className":"mt-4 overflow-hidden rounded-xl border border-line bg-panel-2","children":[["$","figcaption",null,{"className":"flex items-center justify-between border-b border-line px-4 py-2.5 text-xs","children":[["$","span",null,{"className":"font-mono font-semibold text-muted","children":"src/orchestrator.ts"}],["$","span",null,{"className":"uppercase tracking-wide text-muted","children":"typescript"}]]}],["$","pre",null,{"className":"overflow-x-auto p-4 text-[13px] leading-relaxed","children":["$","code",null,{"className":"font-mono","children":"$18"}]}]]}]]}]
+7:["$","li","Measure what the contract saves",{"className":"relative pl-14","children":[["$","span",null,{"aria-hidden":true,"className":"absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-xl bg-accent-strong font-mono text-sm font-bold text-white","children":4}],["$","h3",null,{"className":"pt-1.5 font-semibold","children":"Measure what the contract saves"}],["$","p",null,{"className":"mt-2 text-sm leading-relaxed text-muted","children":"Log the token cost of handing findings vs handing full transcripts. The delta is the argument for structured handoffs."}],["$","figure",null,{"className":"mt-4 overflow-hidden rounded-xl border border-line bg-panel-2","children":[["$","figcaption",null,{"className":"flex items-center justify-between border-b border-line px-4 py-2.5 text-xs","children":[["$","span",null,{"className":"font-mono font-semibold text-muted","children":"terminal"}],["$","span",null,{"className":"uppercase tracking-wide text-muted","children":"bash"}]]}],["$","pre",null,{"className":"overflow-x-auto p-4 text-[13px] leading-relaxed","children":["$","code",null,{"className":"font-mono","children":"npx tsx -e '\nimport { orchestrate } from \"./src/orchestrator.js\";\nconst out = await orchestrate(\"serverless databases\");\nconsole.log(\"REPORT:\", out.report.slice(0, 400));\nconsole.log(\"TOTAL TOKENS:\", out.totalTokens);\n// Compare: JSON.stringify(fullTranscripts).length / 4 ≈ tokens wasted\n// if we had forwarded raw conversations instead of findings.'"}]}]]}]]}]
+8:["$","section",null,{"className":"mt-12 rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-emerald-500","children":"Expected output"}],["$","p",null,{"className":"mt-3 rounded-lg bg-panel-2 p-4 font-mono text-[13px] leading-relaxed","children":"Two researchers run concurrently (wall clock ≈ slowest, not sum), the report cites only corpus URLs, and the writer's prompt contains findings — measured in hundreds of tokens — instead of full transcripts in the tens of thousands."}]]}]
+9:["$","section",null,{"className":"mt-8 rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-muted","children":"Validation checklist"}],["$","ul",null,{"className":"mt-4 space-y-2.5 text-sm","children":[["$","li","Researchers provably overlap in ",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"Researchers provably overlap in time (timestamped logs)"}]]}],["$","li","Every sentence in the report cit",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"Every sentence in the report citing a fact maps to a Finding with a matching URL"}]]}],["$","li","Writer prompt size stays flat ev",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"Writer prompt size stays flat even when researcher transcripts grow"}]]}],["$","li","A deliberately fabricated claim ",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"A deliberately fabricated claim (corpus stripped) causes the researcher to return zero findings rather than inventing quotes"}]]}],["$","li","totalTokens accounts for both su",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"totalTokens accounts for both subagents but excludes the orchestrator's own overhead"}]]}]]}]]}]
+a:["$","section",null,{"className":"mt-8 mb-8 rounded-2xl border-l-4 border-blue bg-blue/10 p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-blue","children":"Extension challenge"}],["$","p",null,{"className":"mt-3 text-sm leading-relaxed text-muted","children":"Add a verifier agent that re-checks each Finding's quote against the corpus and downgrades confidence on mismatch, then route low-confidence findings back to researchers for a second pass before writing."}]]}]
+b:["$","$L19",null,{"children":["$","$1a",null,{"name":"Next.MetadataOutlet","children":"$@1b"}]}]
+e:["$","$1","h",{"children":[null,["$","$L1c",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L1d",null,{"children":["$","$1a",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Lab: Orchestrator + subagent research system | Claude Architect Academy"}],["$","meta","1",{"name":"description","content":"Build a three-agent research system — one orchestrator, parallel researcher subagents, one writer — practicing scoped briefs, fan-out/fan-in, and findings-with-provenance handoffs instead of transcript dumps."}],["$","link","2",{"rel":"icon","href":"/claude-architect-academy/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L1e","3",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+10:["$","$1","c",{"children":[null,["$","$L1f",null,{"parallelRouterKey":"children","template":["$","$L20",null,{}]}]]}]
+13:["$","$1","c",{"children":[null,["$","$L1f",null,{"parallelRouterKey":"children","template":["$","$L20",null,{}]}]]}]
+16:true
+1b:null
+d:300
+d:C
+15:0
+f:"$undefined"
+11:"$undefined"
+14:"$undefined"
+c:"$undefined"

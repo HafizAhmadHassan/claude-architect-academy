@@ -1,0 +1,22 @@
+1:"$Sreact.fragment"
+2:I[98796,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js","/claude-architect-academy/_next/static/chunks/0vpn8-mm_w1mb.js"],"ProgressDashboard"]
+3:I[71220,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js","/claude-architect-academy/_next/static/chunks/0vpn8-mm_w1mb.js"],"StudyTimer"]
+4:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"OutletBoundary"]
+5:"$Sreact.suspense"
+9:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"ViewportBoundary"]
+a:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"MetadataBoundary"]
+b:I[27201,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"IconMark"]
+d:I[39756,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"default"]
+e:I[37457,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"default"]
+8:X
+10:X
+10:C
+0:{"buildId":"klw3iz53yaXIh7ZefUiWv","data":[{"rsc":["$","$1","c",{"children":[[["$","header",null,{"className":"border-b border-line bg-panel","children":["$","div",null,{"className":"mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-16","children":[["$","p",null,{"className":"text-xs font-semibold uppercase tracking-[0.2em] text-accent","children":"Progress"}],["$","h1",null,{"className":"mt-3 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl","children":"Your Claude Architect Readiness"}],["$","div",null,{"className":"mt-4 max-w-2xl leading-relaxed text-muted","children":"Everything you complete — lessons, weekly tasks, practice sets, mock exams, flashcards — feeds these numbers. Stored locally in your browser."}],"$undefined"]}]}],["$","section",null,{"className":"mx-auto max-w-4xl px-4 py-10 sm:px-6","children":["$","div",null,{"className":"grid gap-6 lg:grid-cols-3","children":[["$","div",null,{"className":"lg:col-span-2","children":["$","$L2",null,{}]}],["$","div",null,{"children":["$","$L3",null,{}]}]]}]}]],[["$","script","script-0",{"src":"/claude-architect-academy/_next/static/chunks/0vpn8-mm_w1mb.js","async":true}]],["$","$L4",null,{"children":["$","$5",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":"$@7","staleTime":"$8","varyParams":null},{"rsc":["$","$1","h",{"children":[null,["$","$L9",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$La",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Progress dashboard | Claude Architect Academy"}],["$","meta","1",{"name":"description","content":"Track your Claude Architect readiness across lessons, labs, practice scores, and domain mastery."}],["$","link","2",{"rel":"icon","href":"/claude-architect-academy/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","$Lb","3",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isPartial":"$@c","staleTime":"$8","varyParams":null},{"rsc":["$","$1","c",{"children":[null,["$","$Ld",null,{"parallelRouterKey":"children","template":["$","$Le",null,{}]}]]}],"isPartial":"$@f","staleTime":"$8","varyParams":"$10"}],"isUpgradeableISRFallback":false,"a":"$@11","rootVaryParams":null,"needsRuntimeRequest":"$@12"}
+6:null
+12:true
+8:300
+8:C
+11:0
+c:"$undefined"
+f:"$undefined"
+7:"$undefined"

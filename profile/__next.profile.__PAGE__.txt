@@ -1,0 +1,24 @@
+1:"$Sreact.fragment"
+2:I[47257,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"ClientPageRoot"]
+3:I[13278,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js","/claude-architect-academy/_next/static/chunks/3l2u9fuofk3xf.js"],"default"]
+6:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+b:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"ViewportBoundary"]
+c:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"MetadataBoundary"]
+d:I[27201,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"IconMark"]
+f:I[39756,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"default"]
+10:I[37457,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"default"]
+a:X
+12:X
+12:C
+0:{"buildId":"klw3iz53yaXIh7ZefUiWv","data":[{"rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/claude-architect-academy/_next/static/chunks/3l2u9fuofk3xf.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"isPartial":"$@9","staleTime":"$a","varyParams":null},{"rsc":["$","$1","h",{"children":[null,["$","$Lb",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$Lc",null,{"children":["$","$7",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Claude Architect Academy — Independent Claude Certified Architect preparation resource"}],["$","meta","1",{"name":"description","content":"A free interactive learning platform for the Anthropic Claude Certified Architect – Foundations (CCA-F) exam: agentic architecture, MCP integration, Claude Code workflows, prompt engineering, and reliability."}],["$","link","2",{"rel":"icon","href":"/claude-architect-academy/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","$Ld","3",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"isPartial":"$@e","staleTime":"$a","varyParams":null},{"rsc":["$","$1","c",{"children":[null,["$","$Lf",null,{"parallelRouterKey":"children","template":["$","$L10",null,{}]}]]}],"isPartial":"$@11","staleTime":"$a","varyParams":"$12"}],"isUpgradeableISRFallback":false,"a":"$@13","rootVaryParams":null,"needsRuntimeRequest":"$@14"}
+4:{}
+5:"$0:data:0:rsc:props:children:0:props:serverProvidedParams:params"
+8:null
+14:true
+a:300
+a:C
+13:0
+e:"$undefined"
+11:"$undefined"
+9:"$undefined"

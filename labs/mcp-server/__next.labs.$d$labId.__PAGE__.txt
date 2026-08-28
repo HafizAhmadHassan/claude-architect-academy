@@ -1,0 +1,111 @@
+1:"$Sreact.fragment"
+2:I[22016,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],""]
+d:X
+12:X
+12:C
+0:{"buildId":"klw3iz53yaXIh7ZefUiWv","data":[{"rsc":["$","$1","c",{"children":[["$","article",null,{"className":"mx-auto max-w-4xl px-4 py-12 sm:px-6","children":[["$","nav",null,{"aria-label":"Breadcrumb","className":"text-sm text-muted","children":["$","$L2",null,{"href":"/labs","className":"hover:text-foreground","children":"Labs"}]}],["$","header",null,{"className":"mt-6","children":[["$","div",null,{"className":"flex flex-wrap items-center gap-2","children":[["$","span",null,{"className":"inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium border-accent/40 bg-accent-soft text-accent","children":"Live lab"}],["$","span",null,{"className":"inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium border-line bg-panel-2 text-muted","children":["~",60," minutes"]}]]}],["$","h1",null,{"className":"mt-4 text-3xl font-bold tracking-tight sm:text-4xl","children":"Build your first MCP server"}]]}],["$","section",null,{"className":"mt-8 rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-accent","children":"Objective"}],["$","p",null,{"className":"mt-3 leading-relaxed text-muted","children":"Stand up a working Model Context Protocol server in TypeScript that exposes a customer-lookup tool and a compliant resource, connect it to an MCP client, and observe how tool schemas, descriptions, and structured errors drive Claude's behavior."}]]}],["$","section",null,{"className":"mt-8 grid gap-4 sm:grid-cols-2","children":[["$","div",null,{"className":"rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-muted","children":"Prerequisites"}],["$","ul",null,{"className":"mt-3 list-inside list-disc space-y-1.5 text-sm text-muted","children":[["$","li","Node.js 20+ and npm installed",{"children":"Node.js 20+ and npm installed"}],["$","li","Working knowledge of async TypeScript",{"children":"Working knowledge of async TypeScript"}],["$","li","An Anthropic API key if you also want to call the API from a test client",{"children":"An Anthropic API key if you also want to call the API from a test client"}]]}]]}],["$","div",null,{"className":"rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-blue","children":"Architecture"}],["$","ul",null,{"className":"mt-3 list-inside list-disc space-y-1.5 text-sm text-muted","children":[["$","li","Your MCP server is a standalone ",{"children":"Your MCP server is a standalone process exposing capabilities over a transport."}],["$","li","stdio transport: the host applic",{"children":"stdio transport: the host application spawns your server as a child process and communicates over stdin/stdout — ideal for local tools."}],["$","li","Each registered tool declares a ",{"children":"Each registered tool declares a name, a description, and a JSON-schema-validated input. Validation happens at the protocol layer before your handler runs."}],["$","li","Tool handlers return content blo",{"children":"Tool handlers return content blocks; errors should be returned as structured results carrying an errorCategory so clients can branch deterministically."}]]}]]}]]}],["$","section",null,{"className":"mt-12","children":[["$","h2",null,{"className":"text-xl font-bold","children":"Steps"}],["$","ol",null,{"className":"mt-6 space-y-10","children":[["$","li","Scaffold the project",{"className":"relative pl-14","children":[["$","span",null,{"aria-hidden":true,"className":"absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-xl bg-accent-strong font-mono text-sm font-bold text-white","children":1}],["$","h3",null,{"className":"pt-1.5 font-semibold","children":"Scaffold the project"}],["$","p",null,{"className":"mt-2 text-sm leading-relaxed text-muted","children":"Create the package, install the MCP SDK and Zod, and configure TypeScript module resolution for ESM."}],"$L3"]}],"$L4","$L5","$L6","$L7"]}]]}],"$L8","$L9","$La"]}],null,"$Lb"]}],"isPartial":"$@c","staleTime":"$d","varyParams":null},{"rsc":"$Le","isPartial":"$@f","staleTime":"$d","varyParams":null},{"rsc":"$L10","isPartial":"$@11","staleTime":"$d","varyParams":"$12"},{"rsc":"$L13","isPartial":"$@14","staleTime":"$d","varyParams":"$12"}],"isUpgradeableISRFallback":false,"a":"$@15","rootVaryParams":null,"needsRuntimeRequest":"$@16"}
+19:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"OutletBoundary"]
+1a:"$Sreact.suspense"
+1c:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"ViewportBoundary"]
+1d:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"MetadataBoundary"]
+1e:I[27201,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"IconMark"]
+1f:I[39756,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"default"]
+20:I[37457,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"default"]
+3:["$","figure",null,{"className":"mt-4 overflow-hidden rounded-xl border border-line bg-panel-2","children":[["$","figcaption",null,{"className":"flex items-center justify-between border-b border-line px-4 py-2.5 text-xs","children":[["$","span",null,{"className":"font-mono font-semibold text-muted","children":"terminal"}],["$","span",null,{"className":"uppercase tracking-wide text-muted","children":"bash"}]]}],["$","pre",null,{"className":"overflow-x-auto p-4 text-[13px] leading-relaxed","children":["$","code",null,{"className":"font-mono","children":"mkdir crm-mcp-server && cd crm-mcp-server\nnpm init -y\nnpm install @modelcontextprotocol/sdk zod\nnpm install -D typescript @types/node\nnpx tsc --init --target es2022 --module nodenext --moduleResolution nodenext\nmkdir src"}]}]]}]
+4:["$","li","Declare the server and transport",{"className":"relative pl-14","children":[["$","span",null,{"aria-hidden":true,"className":"absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-xl bg-accent-strong font-mono text-sm font-bold text-white","children":2}],["$","h3",null,{"className":"pt-1.5 font-semibold","children":"Declare the server and transport"}],["$","p",null,{"className":"mt-2 text-sm leading-relaxed text-muted","children":"Create the server instance and wire it to stdio. The server registers capabilities explicitly so clients can discover them."}],["$","figure",null,{"className":"mt-4 overflow-hidden rounded-xl border border-line bg-panel-2","children":[["$","figcaption",null,{"className":"flex items-center justify-between border-b border-line px-4 py-2.5 text-xs","children":[["$","span",null,{"className":"font-mono font-semibold text-muted","children":"src/server.ts"}],["$","span",null,{"className":"uppercase tracking-wide text-muted","children":"typescript"}]]}],["$","pre",null,{"className":"overflow-x-auto p-4 text-[13px] leading-relaxed","children":["$","code",null,{"className":"font-mono","children":"import { McpServer } from \"@modelcontextprotocol/sdk/server/mcp.js\";\nimport { StdioServerTransport } from \"@modelcontextprotocol/sdk/server/stdio.js\";\nimport { registerCrmTools } from \"./tools.js\";\n\nconst server = new McpServer({\n  name: \"crm-mcp-server\",\n  version: \"0.1.0\",\n});\n\nregisterCrmTools(server);\n\nawait server.connect(new StdioServerTransport());"}]}]]}]]}]
+17:T471,import { z } from "zod";
+import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+
+const customers = [
+  { id: "cus_101", name: "Acme Corp", region: "eu", tier: "enterprise" },
+  { id: "cus_102", name: "Globex", region: "us", tier: "growth" },
+];
+
+export function registerCrmTools(server: McpServer) {
+  server.registerTool(
+    "search_customers",
+    {
+      title: "Search customers",
+      description:
+        "Look up customers by free-text name query. Returns matching customers with id, name, region, and tier. Returns an empty list when no customer matches — do not invent IDs. Use customer ids from this list for any follow-up record lookups.",
+      inputSchema: {
+        query: z
+          .string()
+          .min(2)
+          .describe("Case-insensitive substring of the customer name"),
+      },
+    },
+    async ({ query }) => {
+      const q = query.toLowerCase();
+      const matches = customers.filter((c) =>
+        c.name.toLowerCase().includes(q)
+      );
+
+      return {
+        content: [
+          { type: "text" as const, text: JSON.stringify({ matches }) },
+        ],
+      };
+    }
+  );
+}5:["$","li","Register a well-described tool",{"className":"relative pl-14","children":[["$","span",null,{"aria-hidden":true,"className":"absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-xl bg-accent-strong font-mono text-sm font-bold text-white","children":3}],["$","h3",null,{"className":"pt-1.5 font-semibold","children":"Register a well-described tool"}],["$","p",null,{"className":"mt-2 text-sm leading-relaxed text-muted","children":"The description is the contract Claude reasons over: state when to use the tool, parameter formats, and what happens when nothing matches. Zod validates input before your handler executes."}],["$","figure",null,{"className":"mt-4 overflow-hidden rounded-xl border border-line bg-panel-2","children":[["$","figcaption",null,{"className":"flex items-center justify-between border-b border-line px-4 py-2.5 text-xs","children":[["$","span",null,{"className":"font-mono font-semibold text-muted","children":"src/tools.ts"}],["$","span",null,{"className":"uppercase tracking-wide text-muted","children":"typescript"}]]}],["$","pre",null,{"className":"overflow-x-auto p-4 text-[13px] leading-relaxed","children":["$","code",null,{"className":"font-mono","children":"$17"}]}]]}]]}]
+18:T496,server.registerTool(
+  "update_customer_tier",
+  {
+    title: "Update customer tier",
+    description:
+      "Propose a tier change for a customer. This tool never mutates data directly: it returns a change proposal that requires human approval through the support workflow.",
+    inputSchema: {
+      customerId: z.string().startsWith("cus_"),
+      tier: z.enum(["starter", "growth", "enterprise"]),
+    },
+  },
+  async ({ customerId, tier }) => {
+    const known = customers.some((c) => c.id === customerId);
+    if (!known) {
+      return {
+        isError: true,
+        content: [
+          {
+            type: "text" as const,
+            text: JSON.stringify({
+              errorCategory: "validation",
+              message: `Unknown customerId ${customerId}`,
+            }),
+          },
+        ],
+      };
+    }
+
+    return {
+      isError: true,
+      content: [
+        {
+          type: "text" as const,
+          text: JSON.stringify({
+            errorCategory: "permission",
+            message: "Tier changes require human approval",
+            proposal: { customerId, tier, status: "pending_approval" },
+          }),
+        },
+      ],
+    };
+  }
+);6:["$","li","Add a permission-gated write tool",{"className":"relative pl-14","children":[["$","span",null,{"aria-hidden":true,"className":"absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-xl bg-accent-strong font-mono text-sm font-bold text-white","children":4}],["$","h3",null,{"className":"pt-1.5 font-semibold","children":"Add a permission-gated write tool"}],["$","p",null,{"className":"mt-2 text-sm leading-relaxed text-muted","children":"Write operations must be distinguishable from reads. Here the handler refuses to mutate and instead returns a structured proposal payload plus an errorCategory, which a host would surface in an approval queue."}],["$","figure",null,{"className":"mt-4 overflow-hidden rounded-xl border border-line bg-panel-2","children":[["$","figcaption",null,{"className":"flex items-center justify-between border-b border-line px-4 py-2.5 text-xs","children":[["$","span",null,{"className":"font-mono font-semibold text-muted","children":"src/tools.ts (append inside registerCrmTools)"}],["$","span",null,{"className":"uppercase tracking-wide text-muted","children":"typescript"}]]}],["$","pre",null,{"className":"overflow-x-auto p-4 text-[13px] leading-relaxed","children":["$","code",null,{"className":"font-mono","children":"$18"}]}]]}]]}]
+7:["$","li","Smoke-test with the MCP Inspector",{"className":"relative pl-14","children":[["$","span",null,{"aria-hidden":true,"className":"absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-xl bg-accent-strong font-mono text-sm font-bold text-white","children":5}],["$","h3",null,{"className":"pt-1.5 font-semibold","children":"Smoke-test with the MCP Inspector"}],["$","p",null,{"className":"mt-2 text-sm leading-relaxed text-muted","children":"Run the official inspector to connect as a client, list tools, and invoke search_customers before ever wiring Claude in."}],["$","figure",null,{"className":"mt-4 overflow-hidden rounded-xl border border-line bg-panel-2","children":[["$","figcaption",null,{"className":"flex items-center justify-between border-b border-line px-4 py-2.5 text-xs","children":[["$","span",null,{"className":"font-mono font-semibold text-muted","children":"terminal"}],["$","span",null,{"className":"uppercase tracking-wide text-muted","children":"bash"}]]}],["$","pre",null,{"className":"overflow-x-auto p-4 text-[13px] leading-relaxed","children":["$","code",null,{"className":"font-mono","children":"npx @modelcontextprotocol/inspector npx tsx src/server.ts\n\n# In the inspector UI:\n#   1. Connect\n#   2. Tools -> List Tools  (verify descriptions render)\n#   3. Call search_customers with {\"query\": \"acme\"}\n#   4. Call update_customer_tier and confirm the structured permission error"}]}]]}]]}]
+8:["$","section",null,{"className":"mt-12 rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-emerald-500","children":"Expected output"}],["$","p",null,{"className":"mt-3 rounded-lg bg-panel-2 p-4 font-mono text-[13px] leading-relaxed","children":"search_customers returns {\"matches\":[{\"id\":\"cus_101\",\"name\":\"Acme Corp\",\"region\":\"eu\",\"tier\":\"enterprise\"}]} for the query 'acme', and update_customer_tier returns an errorCategory=permission payload containing a pending_approval proposal."}]]}]
+9:["$","section",null,{"className":"mt-8 rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-muted","children":"Validation checklist"}],["$","ul",null,{"className":"mt-4 space-y-2.5 text-sm","children":[["$","li","Inspector lists both tools with ",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"Inspector lists both tools with their full descriptions visible"}]]}],["$","li","Calling search_customers with a ",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"Calling search_customers with a non-matching query returns an empty matches array rather than an error"}]]}],["$","li","update_customer_tier with a vali",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"update_customer_tier with a valid ID returns errorCategory permission with a structured proposal"}]]}],["$","li","update_customer_tier with cus_99",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"update_customer_tier with cus_999 returns errorCategory validation"}]]}],["$","li","Server starts cleanly via stdio ",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"Server starts cleanly via stdio with no stray console.log output polluting the protocol stream"}]]}]]}]]}]
+a:["$","section",null,{"className":"mt-8 mb-8 rounded-2xl border-l-4 border-blue bg-blue/10 p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-blue","children":"Extension challenge"}],["$","p",null,{"className":"mt-3 text-sm leading-relaxed text-muted","children":"Add a customers:// list resource, switch the transport to Streamable HTTP behind authentication, and wrap update_customer_tier so approved proposals from a mock queue actually apply. Then connect Claude Code to your server and verify the model cites empty-result semantics correctly when a search misses."}]]}]
+b:["$","$L19",null,{"children":["$","$1a",null,{"name":"Next.MetadataOutlet","children":"$@1b"}]}]
+e:["$","$1","h",{"children":[null,["$","$L1c",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L1d",null,{"children":["$","$1a",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Lab: Build your first MCP server | Claude Architect Academy"}],["$","meta","1",{"name":"description","content":"Stand up a working Model Context Protocol server in TypeScript that exposes a customer-lookup tool and a compliant resource, connect it to an MCP client, and observe how tool schemas, descriptions, and structured errors drive Claude's behavior."}],["$","link","2",{"rel":"icon","href":"/claude-architect-academy/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L1e","3",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+10:["$","$1","c",{"children":[null,["$","$L1f",null,{"parallelRouterKey":"children","template":["$","$L20",null,{}]}]]}]
+13:["$","$1","c",{"children":[null,["$","$L1f",null,{"parallelRouterKey":"children","template":["$","$L20",null,{}]}]]}]
+16:true
+1b:null
+d:300
+d:C
+15:0
+f:"$undefined"
+11:"$undefined"
+14:"$undefined"
+c:"$undefined"

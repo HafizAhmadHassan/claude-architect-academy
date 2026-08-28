@@ -1,0 +1,109 @@
+1:"$Sreact.fragment"
+2:I[22016,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],""]
+b:X
+10:X
+10:C
+0:{"buildId":"klw3iz53yaXIh7ZefUiWv","data":[{"rsc":["$","$1","c",{"children":[["$","article",null,{"className":"mx-auto max-w-4xl px-4 py-12 sm:px-6","children":[["$","nav",null,{"aria-label":"Breadcrumb","className":"text-sm text-muted","children":["$","$L2",null,{"href":"/labs","className":"hover:text-foreground","children":"Labs"}]}],["$","header",null,{"className":"mt-6","children":[["$","div",null,{"className":"flex flex-wrap items-center gap-2","children":[["$","span",null,{"className":"inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium border-accent/40 bg-accent-soft text-accent","children":"Live lab"}],["$","span",null,{"className":"inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium border-line bg-panel-2 text-muted","children":["~",60," minutes"]}]]}],["$","h1",null,{"className":"mt-4 text-3xl font-bold tracking-tight sm:text-4xl","children":"Tool-use agent loop from scratch"}]]}],["$","section",null,{"className":"mt-8 rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-accent","children":"Objective"}],["$","p",null,{"className":"mt-3 leading-relaxed text-muted","children":"Implement the core agentic loop by hand — tools, tool_result wiring, stop conditions, and budgets — so you can diagnose the failure modes (orphaned results, runaway loops) that frameworks normally hide."}]]}],["$","section",null,{"className":"mt-8 grid gap-4 sm:grid-cols-2","children":[["$","div",null,{"className":"rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-muted","children":"Prerequisites"}],["$","ul",null,{"className":"mt-3 list-inside list-disc space-y-1.5 text-sm text-muted","children":[["$","li","An Anthropic API key",{"children":"An Anthropic API key"}],["$","li","Node.js 20+ with TypeScript",{"children":"Node.js 20+ with TypeScript"}],["$","li","Understanding of the agentic-loop lesson",{"children":"Understanding of the agentic-loop lesson"}]]}]]}],["$","div",null,{"className":"rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-blue","children":"Architecture"}],["$","ul",null,{"className":"mt-3 list-inside list-disc space-y-1.5 text-sm text-muted","children":[["$","li","The loop: send messages → Claude",{"children":"The loop: send messages → Claude responds → if stop_reason is tool_use, execute each requested tool → append tool_result blocks → repeat until end_turn or budget exhaustion."}],["$","li","Every tool_use block MUST be ans",{"children":"Every tool_use block MUST be answered by a tool_result block in the next message; skipping this is the root cause of hallucinated answers."}],["$","li","Stop conditions come from struct",{"children":"Stop conditions come from structured signals (stop_reason === 'end_turn'); the turn budget exists only for when those signals never fire."}],["$","li","Tools are plain functions behind",{"children":"Tools are plain functions behind a registry keyed by name — the model never executes anything itself."}]]}]]}]]}],["$","section",null,{"className":"mt-12","children":[["$","h2",null,{"className":"text-xl font-bold","children":"Steps"}],["$","ol",null,{"className":"mt-6 space-y-10","children":[["$","li","Define tools and their schemas",{"className":"relative pl-14","children":[["$","span",null,{"aria-hidden":true,"className":"absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-xl bg-accent-strong font-mono text-sm font-bold text-white","children":1}],["$","h3",null,{"className":"pt-1.5 font-semibold","children":"Define tools and their schemas"}],["$","p",null,{"className":"mt-2 text-sm leading-relaxed text-muted","children":"Two read-only tools over fake data. Descriptions state scope, formats, and empty-result behavior."}],"$L3"]}],"$L4","$L5"]}]]}],"$L6","$L7","$L8"]}],null,"$L9"]}],"isPartial":"$@a","staleTime":"$b","varyParams":null},{"rsc":"$Lc","isPartial":"$@d","staleTime":"$b","varyParams":null},{"rsc":"$Le","isPartial":"$@f","staleTime":"$b","varyParams":"$10"},{"rsc":"$L11","isPartial":"$@12","staleTime":"$b","varyParams":"$10"}],"isUpgradeableISRFallback":false,"a":"$@13","rootVaryParams":null,"needsRuntimeRequest":"$@14"}
+17:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"OutletBoundary"]
+18:"$Sreact.suspense"
+1a:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"ViewportBoundary"]
+1b:I[97367,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"MetadataBoundary"]
+1c:I[27201,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"IconMark"]
+1d:I[39756,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"default"]
+1e:I[37457,["/claude-architect-academy/_next/static/chunks/0ljc38c0ci9w4.js","/claude-architect-academy/_next/static/chunks/12--29qssp-k2.js","/claude-architect-academy/_next/static/chunks/43my5s2gp3d_n.js"],"default"]
+15:T4ae,import Anthropic from "@anthropic-ai/sdk";
+
+type ToolDef = Anthropic.Tool;
+type Handler = (args: Record<string, never>) => unknown;
+
+export const TOOLS: ToolDef[] = [
+  {
+    name: "lookup_order",
+    description:
+      "Fetch one order by ID. IDs look like 'ord_123'. Returns order status, items, and totals. Returns {found: false} for unknown IDs — that is data, not an error.",
+    input_schema: {
+      type: "object",
+      properties: {
+        order_id: { type: "string", pattern: "^ord_" },
+      },
+      required: ["order_id"],
+    },
+  },
+  {
+    name: "list_open_orders",
+    description:
+      "List all orders with status 'open'. Returns an array, possibly EMPTY when nothing is open.",
+    input_schema: { type: "object", properties: {} },
+  },
+];
+
+export const HANDLERS: Record<string, Handler> = {
+  lookup_order: ({ order_id }: never) => {
+    const db: Record<string, unknown> = {
+      ord_1: { status: "open", total_minor: 4200 },
+      ord_2: { status: "shipped", total_minor: 1999 },
+    };
+    return db[order_id as string]
+      ? { found: true, ...db[order_id as string] }
+      : { found: false };
+  },
+  list_open_orders: () => [{ id: "ord_1", total_minor: 4200 }],
+};3:["$","figure",null,{"className":"mt-4 overflow-hidden rounded-xl border border-line bg-panel-2","children":[["$","figcaption",null,{"className":"flex items-center justify-between border-b border-line px-4 py-2.5 text-xs","children":[["$","span",null,{"className":"font-mono font-semibold text-muted","children":"src/tools.ts"}],["$","span",null,{"className":"uppercase tracking-wide text-muted","children":"typescript"}]]}],["$","pre",null,{"className":"overflow-x-auto p-4 text-[13px] leading-relaxed","children":["$","code",null,{"className":"font-mono","children":"$15"}]}]]}]
+16:T4bf,import Anthropic from "@anthropic-ai/sdk";
+import { TOOLS, HANDLERS } from "./tools.js";
+
+const client = new Anthropic();
+const MAX_TURNS = 8; // budget: worst-case ceiling
+
+export async function runAgent(userGoal: string) {
+  const messages: Anthropic.MessageParam[] = [
+    { role: "user", content: userGoal },
+  ];
+
+  for (let turn = 0; turn < MAX_TURNS; turn++) {
+    const res = await client.messages.create({
+      model: "claude-sonnet-4-5",
+      max_tokens: 1024,
+      tools: TOOLS,
+      messages,
+    });
+
+    messages.push({ role: "assistant", content: res.content });
+
+    if (res.stop_reason !== "tool_use") {
+      return res.content; // normal exit: the answer
+    }
+
+    // Answer EVERY requested tool — never partially
+    const results: Anthropic.ToolResultBlockParam[] = [];
+    for (const block of res.content) {
+      if (block.type !== "tool_use") continue;
+      const output = HANDLERS[block.name](block.input as never);
+      results.push({
+        type: "tool_result",
+        tool_use_id: block.id,
+        content: JSON.stringify(output),
+      });
+    }
+    messages.push({ role: "user", content: results });
+  }
+
+  throw new Error("turn_budget_exhausted"); // observable, bounded
+}4:["$","li","Write the loop with correct result wiring",{"className":"relative pl-14","children":[["$","span",null,{"aria-hidden":true,"className":"absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-xl bg-accent-strong font-mono text-sm font-bold text-white","children":2}],["$","h3",null,{"className":"pt-1.5 font-semibold","children":"Write the loop with correct result wiring"}],["$","p",null,{"className":"mt-2 text-sm leading-relaxed text-muted","children":"The critical section: assistant tool_use blocks and your tool_result blocks must pair up inside the conversation history."}],["$","figure",null,{"className":"mt-4 overflow-hidden rounded-xl border border-line bg-panel-2","children":[["$","figcaption",null,{"className":"flex items-center justify-between border-b border-line px-4 py-2.5 text-xs","children":[["$","span",null,{"className":"font-mono font-semibold text-muted","children":"src/agent.ts"}],["$","span",null,{"className":"uppercase tracking-wide text-muted","children":"typescript"}]]}],["$","pre",null,{"className":"overflow-x-auto p-4 text-[13px] leading-relaxed","children":["$","code",null,{"className":"font-mono","children":"$16"}]}]]}]]}]
+5:["$","li","Break it on purpose",{"className":"relative pl-14","children":[["$","span",null,{"aria-hidden":true,"className":"absolute left-0 top-0 flex h-9 w-9 items-center justify-center rounded-xl bg-accent-strong font-mono text-sm font-bold text-white","children":3}],["$","h3",null,{"className":"pt-1.5 font-semibold","children":"Break it on purpose"}],["$","p",null,{"className":"mt-2 text-sm leading-relaxed text-muted","children":"Reproduce the classic bugs in a scratch copy so you recognize them in logs: comment out the tool_result push (orphaned results), then set MAX_TURNS to 1000 without a stop check (runaway cost)."}],["$","figure",null,{"className":"mt-4 overflow-hidden rounded-xl border border-line bg-panel-2","children":[["$","figcaption",null,{"className":"flex items-center justify-between border-b border-line px-4 py-2.5 text-xs","children":[["$","span",null,{"className":"font-mono font-semibold text-muted","children":"terminal"}],["$","span",null,{"className":"uppercase tracking-wide text-muted","children":"bash"}]]}],["$","pre",null,{"className":"overflow-x-auto p-4 text-[13px] leading-relaxed","children":["$","code",null,{"className":"font-mono","children":"npx tsx -e '\nimport { runAgent } from \"./src/agent.js\";\nconst answer = await runAgent(\n  \"What is the total of our open orders? Use the tools.\"\n);\nconsole.log(JSON.stringify(answer, null, 2));'"}]}]]}]]}]
+6:["$","section",null,{"className":"mt-12 rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-emerald-500","children":"Expected output"}],["$","p",null,{"className":"mt-3 rounded-lg bg-panel-2 p-4 font-mono text-[13px] leading-relaxed","children":"The agent calls list_open_orders, receives the data, computes the answer, and stops with end_turn — all within 3 turns. The broken variants show either Claude inventing an answer (orphaned result) or the budget exception firing."}]]}]
+7:["$","section",null,{"className":"mt-8 rounded-2xl border border-line bg-panel p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-muted","children":"Validation checklist"}],["$","ul",null,{"className":"mt-4 space-y-2.5 text-sm","children":[["$","li","Happy path answers correctly in ",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"Happy path answers correctly in ≤3 turns with visible tool calls in logs"}]]}],["$","li","Every tool_use block in history ",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"Every tool_use block in history has a matching tool_result"}]]}],["$","li","Unknown order_id yields {found:f",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"Unknown order_id yields {found:false} consumed gracefully — never an exception"}]]}],["$","li","Setting an impossible goal termi",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"Setting an impossible goal terminates via turn_budget_exhausted within bounded turns"}]]}],["$","li","No console.log inside handlers p",{"className":"flex gap-3","children":[["$","span",null,{"aria-hidden":true,"className":"text-accent","children":"☐"}],["$","span",null,{"className":"text-muted","children":"No console.log inside handlers pollutes structured output"}]]}]]}]]}]
+8:["$","section",null,{"className":"mt-8 mb-8 rounded-2xl border-l-4 border-blue bg-blue/10 p-6","children":[["$","h2",null,{"className":"text-xs font-bold uppercase tracking-widest text-blue","children":"Extension challenge"}],["$","p",null,{"className":"mt-3 text-sm leading-relaxed text-muted","children":"Add a parallel-tool-call trace showing multiple tool_use blocks answered in one round trip, wrap handlers in the typed error envelope from the MCP lab, and log token counts per turn to watch cost grow with history."}]]}]
+9:["$","$L17",null,{"children":["$","$18",null,{"name":"Next.MetadataOutlet","children":"$@19"}]}]
+c:["$","$1","h",{"children":[null,["$","$L1a",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L1b",null,{"children":["$","$18",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Lab: Tool-use agent loop from scratch | Claude Architect Academy"}],["$","meta","1",{"name":"description","content":"Implement the core agentic loop by hand — tools, tool_result wiring, stop conditions, and budgets — so you can diagnose the failure modes (orphaned results, runaway loops) that frameworks normally hide."}],["$","link","2",{"rel":"icon","href":"/claude-architect-academy/favicon.ico?favicon.2vob68tjqpejf.ico","sizes":"256x256","type":"image/x-icon"}],["$","$L1c","3",{}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}]
+e:["$","$1","c",{"children":[null,["$","$L1d",null,{"parallelRouterKey":"children","template":["$","$L1e",null,{}]}]]}]
+11:["$","$1","c",{"children":[null,["$","$L1d",null,{"parallelRouterKey":"children","template":["$","$L1e",null,{}]}]]}]
+14:true
+19:null
+b:300
+b:C
+13:0
+d:"$undefined"
+f:"$undefined"
+12:"$undefined"
+a:"$undefined"
