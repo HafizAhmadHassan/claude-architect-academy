@@ -1,4 +1,5 @@
 # Claude Architect Academy
+*Created: 2026-08-23*
 
 An independent, open-source study platform for the **Claude Certified Architect – Foundations (CCA-F)** certification issued by Anthropic. The website lives in the [`claude-academy/`](./claude-academy) directory and is built with Next.js, React 19, TypeScript, and Tailwind CSS 4.
 
